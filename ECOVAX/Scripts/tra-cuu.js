@@ -124,46 +124,51 @@ function getGCNItems() {
 
 function getDTCItems() {
     windowLock();
-    $.ajax({
-        type: "GET",
-        dataType: "json",
-        data: {
-            tinhThanh: $("#ddlTinhThanhPho option:selected").text(),
-            quanHuyen: $("#ddlQuanHuyen option:selected").text(),
-            phuongXa: $("#ddlPhuongXa option:selected").text(),
-        },
-        contentType: "application/json; charset=utf-8",
-        url: '/TraCuu/GetDiemTiemChung',
-        success: function (jsonResult) {
-            $("#tblResult > tbody").empty();
-            const result = JSON.parse(jsonResult);
-            if (result.length > 0) {
-                $("#tblResult").removeClass("d-none");
-                $("#lblEmpty").addClass("d-none");
-                for (let i = 0; i < result.length; i++) {
-                    $("#tblResult > tbody:last-child").append(
-                        "<tr>" +
-                        "<td>" + (i + 1) + "</td>" +
-                        "<td>" + result[i].TenDTC + "</td>" +
-                        "<td>" + result[i].DiaChi + "</td>" +
-                        "<td>" + result[i].TenCanBo + "</td>" +
-                        "<td>" + result[i].SDT + "</td>" +
-                        "</tr > "
-                    );
+
+    var tinhThanh = $("#ddlTinhThanhPho option:selected").text();
+    var quanHuyen = $("#ddlQuanHuyen option:selected").text();
+    var phuongXa = $("#ddlPhuongXa option:selected").text();
+        $.ajax({
+            type: "GET",
+            dataType: "text json",
+            data: {
+                tinhThanh: tinhThanh,
+                quanHuyen: quanHuyen,
+                phuongXa: phuongXa,
+            },
+            contentType: "application/json; charset=utf-8",
+            url: '/TraCuu/GetDiemTiemChung',
+            success: function (jsonResult) {
+                $("#tblResult > tbody").empty();
+                const result = JSON.parse(jsonResult);
+                if (result.length > 0) {
+                    $("#tblResult").removeClass("d-none");
+                    $("#lblEmpty").addClass("d-none");
+                    for (let i = 0; i < result.length; i++) {
+                        $("#tblResult > tbody:last-child").append(
+                            "<tr>" +
+                            "<td>" + (i + 1) + "</td>" +
+                            "<td>" + result[i].TenDTC + "</td>" +
+                            "<td>" + result[i].DiaChi + "</td>" +
+                            "<td>" + result[i].TenCanBo + "</td>" +
+                            "<td>" + result[i].SDT + "</td>" +
+                            "</tr > "
+                        );
+                    }
+                } else {
+                    $("#tblResult").addClass("d-none");
+                    $("#lblEmpty").removeClass("d-none");
                 }
-            } else {
-                $("#tblResult").addClass("d-none");
-                $("#lblEmpty").removeClass("d-none");
+            },
+            error: function (error) {
+                console.info(error);
+                showDangerAlert("Đã gặp lỗi khi tìm kiếm");
+            },
+            complete: function () {
+                const timeOut = setTimeout(function () {
+                    windowUnlock();
+                    clearTimeout(timeOut);
+                }, 200);
             }
-        },
-        error: function () {
-            showDangerAlert("Đã gặp lỗi khi tìm kiếm");
-        },
-        complete: function () {
-            const timeOut = setTimeout(function () {
-                windowUnlock();
-                clearTimeout(timeOut);
-            }, 200);
-        }
-    });
+        });
 }

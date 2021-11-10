@@ -45,7 +45,7 @@ namespace ECOVAX.Controllers
                                                       " AND SDTNguoiDK LIKE '" + sdt + "'" +
                                                       " OR SDTNguoiLH LIKE '" + sdt + "'");
             string json = DataProvider.DataTableToJsonObj(tb);
-            return Json(json, JsonRequestBehavior.AllowGet); ;
+            return Json(json, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -66,11 +66,11 @@ namespace ECOVAX.Controllers
                                                       "     AND dbo.removeSign(T1.TenCongDan) LIKE N'%" + ten + "%'" +
                                                       "     OR T1.TenCongDan LIKE N'%" + ten + "%'");
             string json = DataProvider.DataTableToJsonObj(tb);
-            return Json(json, JsonRequestBehavior.AllowGet); ;
+            return Json(json, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
-        public ActionResult GetDiemTiemChung(string tinhThanh, string quanHuyen, string phuongXa)
+        public ActionResult GetDiemTiemChung(string tinhThanh = "", string quanHuyen = "", string phuongXa = "")
         {
             string query = "SELECT TOP 20 T1.IdDTC," +
                                     " T1.DiaChi," +
@@ -78,24 +78,23 @@ namespace ECOVAX.Controllers
                                     " T2.TenCanBo," +
                                     " T2.SDT" +
                            " FROM tblDiemTiemChung T1" +
-                           " LEFT JOIN tblTaiKhoan T2 ON T1.IdTaiKhoan = T2.IdTaiKhoan" +
-                           " WHERE 1=1";
+                           " LEFT JOIN tblTaiKhoan T2 ON T1.IdTaiKhoan = T2.IdTaiKhoan";
 
             if (tinhThanh != "")
             {
-                query += " AND dbo.removeSign(T1.DiaChi) LIKE N'%" + tinhThanh + "%' OR T1.DiaChi LIKE N'%" + tinhThanh + "%'";
+                query += " WHERE T1.DiaChi LIKE N'%" + tinhThanh + "%'";
             }
             if (quanHuyen != "")
             {
-                query += " AND dbo.removeSign(T1.DiaChi) LIKE N'%" + quanHuyen + "%' OR T1.DiaChi LIKE N'%" + quanHuyen + "%'";
+                query += " AND T1.DiaChi LIKE N'%" + quanHuyen + "%'";
             }
             if (phuongXa != "")
             {
-                query += " AND dbo.removeSign(T1.DiaChi) LIKE N'%" + phuongXa + "%' OR T1.DiaChi LIKE N'%" + phuongXa + "%'";
+                query += " AND T1.DiaChi LIKE N'%" + phuongXa + "%'";
             }
             DataTable tb = DataProvider.ExecuteQuery(query);
             string json = DataProvider.DataTableToJsonObj(tb);
-            return Json(json, JsonRequestBehavior.AllowGet); ;
+            return Json(json, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -115,7 +115,7 @@ namespace ECOVAX.Providers
             }
             else
             {
-                return null;
+                return "{}";
             }
         }
     }
