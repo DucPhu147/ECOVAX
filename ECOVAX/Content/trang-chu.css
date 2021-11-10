@@ -1,0 +1,63 @@
+﻿
+.jumbotron {
+    background-image: url('../Content/image/banner.png');
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    border-radius: 0;
+}
+.widget-container {
+    display: flex;
+    flex-wrap:wrap;
+    align-items: center;
+    justify-content: center;
+}
+.widget-btn-1 {
+    margin: 15px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+    .widget-btn-1 i {
+        font-size: 25pt;
+        margin-right: 25px;
+    }
+.faq-card {
+    text-align: center;
+    height: 160px;
+    padding: 8px;
+    margin: 5px;
+    border-color: var(--primaryColor);
+    color: var(--primaryColor);
+}
+
+    .faq-card:hover,
+    .faq-card:focus,
+    .faq-card:active {
+        background-color: #fff !important;
+        color: var(--primaryColor) !important;
+    }
+    .faq-card * {
+        color: var(--primaryColor);
+    }
+.faq-card:hover {
+    border-color: var(--primaryColor);
+    color: var(--primaryColor);
+}
+.faq-card i{
+    font-size: 40pt;
+}
+.line {
+    border-bottom: 2px solid var(--gray);
+}
+@media (max-width: 768px) {
+    .faq-card * {
+        font-size: 3vw;
+    }
+    .faq-card i {
+        font-size: 8vw;
+    }
+    .faq-card {
+        height: 150px;
+    }
+}

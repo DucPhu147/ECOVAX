@@ -1,0 +1,80 @@
+﻿@using ECOVAX.Providers
+@{
+    ViewBag.Title = @Constant.PAGE_TITLE;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/trang-chu.css" rel="stylesheet" />
+<div class="jumbotron bg-dark">
+    <h1 class="display-4">Vắc xin đã về!</h1>
+    <p class="lead">
+        Chủ động chống dịch, tiêm vắc xin
+        <br />Bảo vệ chính mình, người thân và cộng đồng
+    </p>
+    <a class="btn btn-primary btn-jumbotron-home" href="#" role="button">Tìm hiểu thêm »</a>
+</div>
+<div class="container-fluid ">
+    <div class="row widget-container">
+        <a class="btn btn-primary col-md-3 widget-btn-1" href="/DangKyTiem">
+            <i class="fal fa-syringe"></i>
+            Đăng ký tiêm chủng
+        </a>
+        <a class="btn btn-success col-md-3 widget-btn-1" href="#">
+            <i class="fal fa-search"></i>
+            Tra cứu tình trạng đăng ký
+        </a>
+        <a class="btn btn-warning col-md-3 widget-btn-1" href="#">
+            <i class="fal fa-file-search"></i>
+            Tra cứu chứng nhận
+        </a>
+    </div>
+    <div class="row mt-4">
+        <div class="mx-auto text-center">
+            <h5>Chúng tôi biết bạn có câu hỏi. Chúng tôi ở đây để giúp đỡ</h5>
+            <p class="mt-5 w-50 mx-auto line"></p>
+        </div>
+    </div>
+    <div class="row widget-container flex-nowrap">
+        <a class="faq-card btn btn-outline-dark col-md-3">
+            <i class="fal fa-syringe mt-3"></i>
+            <div class="card-body text-center">
+                <h5 class="card-title">Đã có bao nhiêu người được tiêm vắc xin?</h5>
+            </div>
+        </a>
+        <a class="faq-card btn btn-outline-dark col-md-3">
+            <i class="fal fa-map-marker-alt mt-3"></i>
+            <div class="card-body text-center">
+                <h5 class="card-title">Tôi có thể tiêm vắc xin ở đâu?</h5>
+            </div>
+        </a>
+    </div>
+    <div class="row widget-container flex-nowrap">
+        <a class="faq-card btn btn-outline-dark col-md-3">
+            <i class="fal fa-flask mt-3"></i>
+            <div class="card-body text-center">
+                <h5 class="card-title">Vắc xin hoạt động như thế nào?</h5>
+            </div>
+        </a>
+        <a class="faq-card btn btn-outline-dark col-md-3">
+            <i class="fal fa-shield-virus mt-3"></i>
+            <div class="card-body text-center">
+                <h5 class="card-title">Vắc xin có an toàn không?</h5>
+            </div>
+        </a>
+    </div>
+    <div class="row widget-container flex-nowrap">
+        <a class="faq-card btn btn-outline-dark col-md-3">
+            <i class="far fa-calendar mt-3"></i>
+            <div class="card-body text-center">
+                <h5 class="card-title">Khi nào tôi sẽ được tiêm vắc xin?</h5>
+            </div>
+        </a>
+        <a class="faq-card btn btn-outline-dark col-md-3">
+            <i class="fal fa-lungs mt-3"></i>
+            <div class="card-body text-center">
+                <h5 class="card-title">Vắc xin có hiệu quả không?</h5>
+            </div>
+        </a>
+    </div>
+</div>
+
+

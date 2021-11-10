@@ -1,0 +1,20 @@
+﻿
+.section-title {
+    font-weight: 600;
+}
+
+input, select {
+    max-width: 100%;
+}
+
+.stepper-desc {
+    font-size: 1.1em;
+}
+
+.bg-gray {
+    background-color: #f3f3f3 !important;
+}
+
+.text-color-primary {
+    color: var(--primaryColor);
+}

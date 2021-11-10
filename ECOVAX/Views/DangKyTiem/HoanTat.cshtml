@@ -1,0 +1,48 @@
+﻿@using ECOVAX.Providers
+@{
+    ViewBag.Title = "Phiếu sàng lọc - " + @Constant.PAGE_TITLE;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/dang-ky-tiem.css" rel="stylesheet" />
+<link href="~/Content/stepper.css" rel="stylesheet" />
+<script src="~/Scripts/dang-ky-tiem-index.js"></script>
+<nav aria-label="breadcrumb">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <h4 class="text-uppercase">Đăng ký tiêm chủng</h4>
+        <ol class="breadcrumb bg-white pr-0">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Đăng ký tiêm</li>
+        </ol>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row no-gutters">
+        <ol class="stepper justify-content-between w-100 pl-0">
+            <li class="stepper-item stepper-active">
+                <h5 class="stepper-title">1</h5>
+                <p class="stepper-desc">Đăng ký thông tin</p>
+            </li>
+            <li class="stepper-item stepper-active">
+                <h5 class="stepper-title">2</h5>
+                <p class="stepper-desc">Sàng lọc bệnh</p>
+            </li>
+            <li class="stepper-item stepper-active">
+                <h5 class="stepper-title">3</h5>
+                <p class="stepper-desc">Xác nhận tiêm</p>
+            </li>
+            <li class="stepper-item stepper-current">
+                <h5 class="stepper-title">4</h5>
+                <p class="stepper-desc">Hoàn tất</p>
+            </li>
+        </ol>
+    </div>
+    <div class="row justify-content-center w-100 mt-5">
+        <div class="col-md-10 text-center">
+            <h2>Cảm ơn anh/chị đã đăng ký tiêm. Chúng tôi sẽ xác nhận bản đăng ký trong thời gian sớm nhất</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <button class="btn submit-form-btn btn-submit" type="submit" id="btnSubmit" onclick="window.location.href='/'">Về trang chủ</button>
+    </div>
+</div>
+

@@ -1,0 +1,94 @@
+﻿@using ECOVAX.Providers
+@model ECOVAX.Models.PhieuSangLocViewModel
+@{
+    ViewBag.Title = "Phiếu sàng lọc - " + @Constant.PAGE_TITLE;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/dang-ky-tiem.css" rel="stylesheet" />
+<link href="~/Content/stepper.css" rel="stylesheet" />
+<script src="~/Scripts/dang-ky-tiem-index.js"></script>
+<nav aria-label="breadcrumb">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <h4 class="text-uppercase">Đăng ký tiêm chủng</h4>
+        <ol class="breadcrumb bg-white pr-0">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Đăng ký tiêm</li>
+        </ol>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row no-gutters">
+        <ol class="stepper justify-content-between w-100 pl-0">
+            <li class="stepper-item stepper-active">
+                <h5 class="stepper-title">1</h5>
+                <p class="stepper-desc">Đăng ký thông tin</p>
+            </li>
+            <li class="stepper-item stepper-current">
+                <h5 class="stepper-title">2</h5>
+                <p class="stepper-desc">Sàng lọc bệnh</p>
+            </li>
+            <li class="stepper-item">
+                <h5 class="stepper-title">3</h5>
+                <p class="stepper-desc">Xác nhận tiêm</p>
+            </li>
+            <li class="stepper-item">
+                <h5 class="stepper-title">4</h5>
+                <p class="stepper-desc">Hoàn tất</p>
+            </li>
+        </ol>
+    </div>
+    @using (Html.BeginForm("SubmitPhieuSangLoc", "DangKyTiem",
+        FormMethod.Post, new { id = "registVaccineForm", @class = "w-100" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr class="font-weight-bold">
+                            <td class="col-md-9">Tiền sử</td>
+                            <td class="text-center">Có</td>
+                            <td class="text-center">Không</td>
+                            <td class="text-center">Không rõ</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (var index = 0; index < Model.listDanhMucSangLoc.Count; index++)
+                        {
+                            <tr>
+                                <td>
+                                    @(index +1).
+                                    @Model.listDanhMucSangLoc[index].TenDanhMuc
+                                </td>
+                                <td class="text-center p-0">
+                                    <label for="@(Model.listDanhMucSangLoc[index].IdDanhMuc + "1")" class="d-block w-100 p-2 mb-0">
+                                        @Html.RadioButtonFor(model => model.listDanhMucSangLoc[index].TrangThai,
+                                       "Có", new { id = Model.listDanhMucSangLoc[index].IdDanhMuc + "1" })
+                                    </label>
+                                </td>
+                                <td class="text-center p-0">
+                                    <label for="@(Model.listDanhMucSangLoc[index].IdDanhMuc+ "2")" class="d-block w-100 p-2 mb-0">
+                                        @Html.RadioButtonFor(model => model.listDanhMucSangLoc[index].TrangThai,
+                                       "Không", new { Checked = "checked", id = Model.listDanhMucSangLoc[index].IdDanhMuc + "2" })
+                                    </label>
+                                </td>
+                                <td class="text-center p-0">
+                                    <label for="@(Model.listDanhMucSangLoc[index].IdDanhMuc+ "3")" class="d-block w-100 p-2 mb-0">
+                                        @Html.RadioButtonFor(model => model.listDanhMucSangLoc[index].TrangThai,
+                                       "Không rõ", new { id = Model.listDanhMucSangLoc[index].IdDanhMuc + "3" })
+                                    </label>
+                                    @Html.HiddenFor(model => Model.listDanhMucSangLoc[index].TenDanhMuc)
+                                    @Html.HiddenFor(model => Model.listDanhMucSangLoc[index].IdDanhMuc)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-5">
+            <button class="btn btn-danger mr-4 submit-form-btn" id="btnBack" type="button">Quay lại</button>
+            <button class="btn submit-form-btn btn-submit" type="submit" id="btnSubmit">Tiếp tục</button>
+        </div>
+    }
+</div>

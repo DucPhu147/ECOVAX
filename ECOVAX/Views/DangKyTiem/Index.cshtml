@@ -1,0 +1,200 @@
+﻿@using ECOVAX.Providers
+@model ECOVAX.Models.GiayDangKyViewModel
+@{
+    ViewBag.Title = "Đăng ký tiêm - " + @Constant.PAGE_TITLE;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/dang-ky-tiem-index.js"></script>
+<link href="~/Content/bootstrap/bootstrap-select.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap/bootstrap-select.min.js"></script>
+<link href="~/Content/stepper.css" rel="stylesheet" />
+<link href="~/Content/dang-ky-tiem.css" rel="stylesheet" />
+<script src="~/Scripts/api-hanh-chinh-vn.js"></script>
+
+<nav aria-label="breadcrumb">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <h4 class="text-uppercase">Đăng ký tiêm chủng</h4>
+        <ol class="breadcrumb bg-white pr-0">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Đăng ký tiêm</li>
+        </ol>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <ol class="stepper justify-content-between w-100">
+            <li class="stepper-item stepper-current ">
+                <h5 class="stepper-title">1</h5>
+                <p class="stepper-desc">Đăng ký thông tin</p>
+            </li>
+            <li class="stepper-item ">
+                <h5 class="stepper-title">2</h5>
+                <p class="stepper-desc">Sàng lọc bệnh</p>
+            </li>
+            <li class="stepper-item">
+                <h5 class="stepper-title">3</h5>
+                <p class="stepper-desc">Xác nhận tiêm</p>
+            </li>
+            <li class="stepper-item">
+                <h5 class="stepper-title">4</h5>
+                <p class="stepper-desc">Hoàn tất</p>
+            </li>
+        </ol>
+    </div>
+    @using (Html.BeginForm("SubmitPhieuDangKy", "DangKyTiem",
+        FormMethod.Post, new { id = "registInfoForm", @class = "w-100" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row no-gutters">
+            <h5 class="text-color-primary">1. Thông tin người liên hệ</h5>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mt-1">
+                <span class="required">Họ tên người liên hệ</span>
+                <input type="text" class="form-control w-100" name="TenNguoiLH" maxlength="255" value="@Model.TenNguoiLH" />
+            </div>
+            <div class="col-md-3 mt-1">
+                <span class="required">Số điện thoại người liên hệ</span>
+                <input type="text" class="form-control w-100" name="SdtNguoiLH" maxlength="10" value="@Model.SDTNguoiLH" />
+            </div>
+            <div class="col-md-3 mt-1">
+                <span class="required">Quan hệ với người đăng ký tiêm</span> <br />
+                @Html.DropDownListFor(m => m.QuanHe, Model.DdlQuanHe,
+                new { id = "ddlQuanHe", @class = "selectpicker w-100", title = "Quan hệ với người tiêm..." })
+            </div>
+        </div>
+        <div class="row no-gutters mt-4">
+            <h5 class="text-color-primary">2. Thông tin người đăng ký</h5>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mt-1">
+                <span class="required">Đăng ký số mũi</span> <br />
+                @Html.DropDownListFor(m => m.SoMui, Model.DdlSoMui, new { id = "ddlSoMui", @class = "selectpicker w-100", title = "Đăng ký mũi thứ..." })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mt-3">
+                <span class="required">Họ tên người tiêm</span>
+                <input type="text" class="form-control w-100" name="TenNguoiDK" maxlength="255" value="@Model.TenNguoiDK" />
+            </div>
+            <div class="col-md-3 mt-3">
+                <span class="required">Ngày sinh người tiêm</span>
+                <input type="date" class="form-control w-100" name="NgaySinh" value="@Model.NgaySinh" />
+            </div>
+            <div class="col-md-3 mt-3">
+                <span class="required">Giới tính</span> <br />
+                @Html.DropDownListFor(m => m.GioiTinh, Model.DdlGioiTinh, new { id = "ddlGioiTinh", @class = "selectpicker w-100", title = "Chọn giới tính..." })
+            </div>
+            <div class="col-md-3 mt-3">
+                <span>Số điện thoại</span>
+                <input type="text" class="form-control w-100" name="SdtNguoiDK" maxlength="10" value="@Model.SDTNguoiDK" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mt-3">
+                <span class="required">Tỉnh/Thành phố</span>
+                <select id="ddlTinhThanhPho" name="DdlTinhThanhPho" class="selectpicker w-100" title="Tỉnh/Thành phố" data-live-search="true"
+                        data-dropup-auto="false">
+                </select>
+            </div>
+            <div class="col-md-3 mt-3">
+                <span class="required">Quận/Huyện</span>
+                <select id="ddlQuanHuyen" name="DdlQuanHuyen" disabled class="selectpicker w-100" title="Quận/Huyện" data-live-search="true" data-dropup-auto="false">
+                </select>
+            </div>
+            <div class="col-md-3 mt-3">
+                <span class="required">Phường/Xã</span>
+                @Html.DropDownListFor(m => m.DiaChiHanhChinh, new List<SelectListItem>(),
+                new
+                {
+                    id = "ddlPhuongXa",
+                    @class = "selectpicker w-100",
+                    data_dropup_auto = "false",
+                    data_live_search = "true",
+                    title = "Phường/Xã",
+                    @disabled = "disabled"
+                })
+            </div>
+            <div class="col-md-3 mt-3">
+                <span class="required">Địa chỉ</span>
+                <input type="text" class="form-control w-100" name="DiaChi" maxlength="255" value="@Model.DiaChi" placeholder="Số nhà, phố, ngách..." />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mt-3">
+                <span class="required">CMND/CCCD</span>
+                <input type="text" class="form-control w-100" name="CMND" maxlength="12" value="@Model.CMND" />
+            </div>
+            <div class="col-md-3 mt-3">
+                <span>Email</span>
+                <input type="text" class="form-control w-100" name="Email" maxlength="255" value="@Model.Email" />
+            </div>
+            <div class="col-md-3 mt-3">
+                <span>Nghề nghiệp</span>
+                <input type="text" class="form-control w-100" name="NgheNghiep" maxlength="255" value="@Model.NgheNghiep" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mt-3">
+                <span class="required">Nhóm ưu tiên</span> <br />
+                @Html.DropDownListFor(m => m.NhomUuTien, Model.DdlDoiTuongUuTien,
+                new
+                {
+                    id = "ddlNhomUuTien",
+                    @class = "selectpicker w-100",
+                    data_dropup_auto = "false",
+                    data_live_search = "false",
+                    title = "Chọn nhóm ưu tiên..."
+                })
+            </div>
+        </div>
+        <div class="row no-gutters mt-4">
+            <h5 class="text-color-primary">3. Thông tin tiêm chủng</h5>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mt-1">
+                <span>Ngày tiêm mong muốn (dự kiến)</span>
+                <input type="date" class="form-control w-100" name="NgayTiem" value="@Model.NgayTiem" />
+            </div>
+            <div class="col-md-3 mt-1">
+                <span>Buổi tiêm mong muốn</span> <br />
+                @Html.DropDownListFor(m => m.BuoiTiem, Model.DdlBuoiTiem, new { id = "ddlBuoiTiem", @class = "selectpicker w-100", title = "Chọn buổi tiêm..." })
+            </div>
+            <div class="col-md-6 mt-1">
+                <span>Điểm tiêm chủng</span>
+                @Html.DropDownListFor(m => m.DiemTiemChung, Model.DdlDiemTiemChung, new
+                {
+                    id = "ddlDiemTiemChung",
+                    @class = "selectpicker w-100",
+                    title = "Chọn điểm tiêm...",
+                    data_live_search = "true",
+                })
+            </div>
+        </div>
+        <div class="d-none" id="firstVacInfoContainer">
+            <div class="row no-gutters mt-4">
+                <h5 class="text-color-primary">4. Thông tin vắc xin mũi một</h5>
+            </div>
+            <div class="row">
+                <div class="col-md-3 mt-1">
+                    <span class="required">Tên vắc xin mũi một</span>
+                    @Html.DropDownListFor(m => m.TenVaccineMuiMot, Model.DdlVaccine, new
+                    {
+                        id = "ddlVaccine",
+                        @class = "selectpicker w-100",
+                        title = "Chọn vắc xin mũi một...",
+                    })
+                </div>
+                <div class="col-md-3 mt-1">
+                    <span class="required">Ngày tiêm mũi một</span> <br />
+                    <input type="date" class="form-control w-100" name="NgayTiemMuiMot" value="@Model.NgayTiemMuiMot" />
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-5">
+            <button class="btn btn-danger mr-4 submit-form-btn" id="btnReset" type="reset">Hủy</button>
+            <button class="btn submit-form-btn btn-submit" type="submit" id="btnSubmit">Tiếp tục</button>
+        </div>
+    }
+</div>

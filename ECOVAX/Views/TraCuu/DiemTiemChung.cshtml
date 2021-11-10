@@ -1,0 +1,54 @@
+﻿@using ECOVAX.Providers
+@{
+    ViewBag.Title = "Tra cứu tình trạng giấy chứng nhận" +
+                " - " + @Constant.PAGE_TITLE;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/tra-cuu.js"></script>
+<script src="~/Scripts/api-hanh-chinh-vn.js"></script>
+
+<link href="~/Content/bootstrap/bootstrap-select.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap/bootstrap-select.min.js"></script>
+
+<nav aria-label="breadcrumb">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <h4 class="text-uppercase">Tra cứu điểm tiêm chủng</h4>
+        <ol class="breadcrumb bg-white pr-0">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Tra cứu điểm tiêm chủng</li>
+        </ol>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <select id="ddlTinhThanhPho" class="selectpicker col-md-3" title="Tỉnh/Thành phố" data-live-search="true">
+        </select>
+        <select id="ddlQuanHuyen" class="selectpicker col-md-3" disabled title="Quận/Huyện" data-live-search="true">
+        </select>
+        <select id="ddlPhuongXa" class="selectpicker col-md-3" disabled title="Phường/Xã" data-live-search="true">
+        </select>
+    </div>
+    <div class="row justify-content-center mt-4 w-100">
+        <button class="btn submit-form-btn btn-submit" id="btnTraCuuDTC">Tra cứu</button>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-10 mt-4">
+            <table class="table table-bordered table-hover d-none" id="tblResult">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên điểm tiêm</th>
+                        <th>Địa chỉ</th>
+                        <th>Tên người phụ trách</th>
+                        <th>SĐT người phụ trách</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <h5 class="d-none mt-4 w-100 text-center" id="lblEmpty">Không tìm thấy bản ghi nào</h5>
+        </div>
+    </div>
+</div>
+

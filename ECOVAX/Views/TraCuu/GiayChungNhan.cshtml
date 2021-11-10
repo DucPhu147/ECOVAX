@@ -1,0 +1,55 @@
+﻿@using ECOVAX.Providers
+@{
+    ViewBag.Title = "Tra cứu tình trạng giấy chứng nhận" +
+                " - " + @Constant.PAGE_TITLE;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/tra-cuu.js"></script>
+
+<nav aria-label="breadcrumb">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <h4 class="text-uppercase">Tra cứu giấy chứng nhận</h4>
+        <ol class="breadcrumb bg-white pr-0">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Tra cứu giấy chứng nhận</li>
+        </ol>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-3 mt-1">
+            <span class="required mr-2">Họ và tên</span>
+            <input type="text" class="form-control w-100 mw-100" id="txtHoTen" maxlength="255" />
+        </div>
+        <div class="col-md-3 mt-1">
+            <span class="required mr-2">CMND/CCCD</span>
+            <input type="text" class="form-control w-100 mw-100" id="txtCMND" maxlength="12" />
+        </div>
+    </div>
+    <div class="row justify-content-center mt-4 w-100">
+        <button class="btn submit-form-btn btn-submit" id="btnTraCuuGCN">Tra cứu</button>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-10 mt-4">
+            <table class="table table-bordered table-hover d-none" id="tblResult">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên công dân</th>
+                        <th>CMND</th>
+                        <th>Tên vắc xin</th>
+                        <th>Nội dung</th>
+                        <th>Nơi cấp</th>
+                        <th>Thời gian tiêm</th>
+                        <th>Thời gian cấp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <h5 class="d-none mt-4 w-100 text-center" id="lblEmpty">Không tìm thấy bản ghi nào</h5>
+        </div>
+    </div>
+</div>
+

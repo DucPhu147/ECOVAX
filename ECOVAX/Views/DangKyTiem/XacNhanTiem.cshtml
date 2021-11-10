@@ -1,0 +1,77 @@
+﻿@using ECOVAX.Providers
+@{
+    ViewBag.Title = "Xác nhận tiêm - " + @Constant.PAGE_TITLE;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/dang-ky-tiem.css" rel="stylesheet" />
+<link href="~/Content/stepper.css" rel="stylesheet" />
+<script src="~/Scripts/dang-ky-tiem-index.js"></script>
+<nav aria-label="breadcrumb">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <h4 class="text-uppercase">Đăng ký tiêm chủng</h4>
+        <ol class="breadcrumb bg-white pr-0">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Đăng ký tiêm</li>
+        </ol>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row no-gutters">
+        <ol class="stepper justify-content-between w-100 pl-0">
+            <li class="stepper-item stepper-active">
+                <h5 class="stepper-title">1</h5>
+                <p class="stepper-desc">Đăng ký thông tin</p>
+            </li>
+            <li class="stepper-item stepper-active">
+                <h5 class="stepper-title">2</h5>
+                <p class="stepper-desc">Sàng lọc bệnh</p>
+            </li>
+            <li class="stepper-item stepper-current">
+                <h5 class="stepper-title">3</h5>
+                <p class="stepper-desc">Xác nhận tiêm</p>
+            </li>
+            <li class="stepper-item">
+                <h5 class="stepper-title">4</h5>
+                <p class="stepper-desc">Hoàn tất</p>
+            </li>
+        </ol>
+    </div>
+    @using (Html.BeginForm("SubmitXacNhanTiem", "DangKyTiem",
+        FormMethod.Post, new { id = "registVaccineForm", @class = "w-100" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row justify-content-center">
+            <div class="col-md-10 text-justify">
+                <ol>
+                    <li class="mb-4">
+                        Tiêm chủng vắc xin là biện pháp phòng chống dịch hiệu quả, tuy nhiên vắc xin phòng COVID-19 có thể không phòng được bệnh hoàn toàn.
+                        Người được tiêm chủng vắc xin phòng COVID-19 có thể phòng được bệnh hoặc giảm mức độ nặng nếu mắc bệnh.
+                        Tuy nhiên, sau khi tiêm chủng vẫn phải tiếp tục thực hiện nghiêm các biện pháp phòng chống dịch theo quy định.
+                    </li>
+                    <li class="mb-4">
+                        Tiêm chủng vắc xin phòng COVID-19 có thể gây ra một số biểu hiện tại chỗ tiêm hoặc toàn thân như sưng, đau chỗ tiêm, nhức đầu, buồn nôn, sốt, đau cơ…hoặc tai biến nặng sau tiêm chủng.
+                        Tiêm vắc xin mũi 2 do Pfizer sản xuất ở người đã tiêm mũi 1 bằng vắc xin AstraZeneca có thể tăng khả năng xảy ra phản ứng thông thường sau tiêm chủng.
+
+                    </li>
+                    <li class="mb-4">
+                        Khi có triệu chứng bất thường về sức khỏe, người được tiêm chủng cần đến ngay cơ sở y tế gần nhất để được tư vấn, thăm khám và điều trị kịp thời.
+                    </li>
+                </ol>
+            </div>
+            <div class="col-md-10">
+                <hr />
+            </div>
+            <div class="col-md-10">
+                <span>
+                    Sau khi đọc các thông tin trên, tôi đã hiểu rõ các nguy cơ và: <input class="ml-4" type="checkbox" id="cbConfirm" />
+                    <label for="cbConfirm">Đồng ý tiêm chủng</label>
+                </span>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-5">
+            <button class="btn btn-danger mr-4 submit-form-btn" id="btnBack" type="button">Quay lại</button>
+            <button class="btn submit-form-btn btn-submit" type="submit" id="btnSubmit" disabled>Hoàn tất</button>
+        </div>
+    }
+</div>
+
