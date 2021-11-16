@@ -38,8 +38,6 @@ namespace ECOVAX.Models
 
         public string BuoiTiem { get; set; }
 
-        public string DiemTiemChung { get; set; }
-
         public string TenVaccineMuiMot { get; set; }
 
         public DateTime? NgayTiemMuiMot { get; set; }
@@ -54,8 +52,6 @@ namespace ECOVAX.Models
 
         public List<SelectListItem> DdlBuoiTiem { get; set; }
 
-        public List<SelectListItem> DdlDiemTiemChung { get; set; }
-
         public List<SelectListItem> DdlVaccine { get; set; }
 
         public string DiaChiHanhChinh { get; set; }
@@ -67,8 +63,8 @@ namespace ECOVAX.Models
             DdlGioiTinh = new List<SelectListItem>();
             DdlSoMui = new List<SelectListItem>();
             DdlBuoiTiem = new List<SelectListItem>();
-            DdlDiemTiemChung = new List<SelectListItem>();
             DdlVaccine = new List<SelectListItem>();
+
         }
     }
 }

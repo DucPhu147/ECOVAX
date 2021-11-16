@@ -15,32 +15,34 @@
     </div>
 </nav>
 <div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-md-3 mt-1">
-            <span class="required mr-2">CMND/CCCD người tiêm</span>
-            <input type="text" class="form-control w-100 mw-100" id="txtCMND" maxlength="12" />
+    <form id="formTraCuu">
+        <div class="row justify-content-center">
+            <div class="col-md-3 mt-1">
+                <span class="required mr-2">CMND/CCCD người tiêm</span>
+                <input type="text" class="form-control w-100 mw-100" id="txtCMND" name="txtCMND" maxlength="12" />
+            </div>
+            <div class="col-md-3 mt-1">
+                <span class="required mr-2">SĐT người liên hệ/ đăng ký tiêm</span>
+                <input type="text" class="form-control w-100 mw-100" id="txtSDT" name="txtSDT" maxlength="10" />
+            </div>
         </div>
-        <div class="col-md-3 mt-1">
-            <span class="required mr-2">SĐT người liên hệ/ đăng ký tiêm</span>
-            <input type="text" class="form-control w-100 mw-100" id="txtSDT" maxlength="10" />
+        <div class="row justify-content-center mt-4">
+            <button class="btn submit-form-btn btn-submit" id="btnTraCuuGDK" type="button">Tra cứu</button>
         </div>
-    </div>
-    <div class="row justify-content-center mt-4">
-        <button class="btn submit-form-btn btn-submit" id="btnTraCuuGDK">Tra cứu</button>
-    </div>
-
+    </form>
     <div class="row justify-content-center">
         <div class="col-md-10 mt-4">
             <table class="table table-bordered table-hover d-none" id="tblResult">
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Tên người liên hệ</th>
+                        <th>Người liên hệ</th>
                         <th>SĐT người liên hệ</th>
-                        <th>Tên người tiêm</th>
-                        <th>SĐT người tiêm</th>
-                        <th>CMND người tiêm</th>
+                        <th>Người tiêm</th>
                         <th>Thời gian đăng ký</th>
+                        <th>Địa điểm tiêm</th>
+                        <th>Ngày tiêm</th>
+                        <th>Buổi tiêm</th>
                         <th>Trạng thái</th>
                         <th></th>
                     </tr>

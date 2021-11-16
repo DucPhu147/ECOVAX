@@ -32,18 +32,30 @@ namespace ECOVAX.Controllers
         [HttpGet]
         public ActionResult GetGiayDangKy(string cmnd, string sdt)
         {
-            DataTable tb = DataProvider.ExecuteQuery("SELECT  IdGiayDK," +
-                                                            " TenNguoiDK," +
-                                                            " TenNguoiLH," +
-                                                            " SDTNguoiDK," +
-                                                            " SDTNguoiLH," +
-                                                            " CMND," +
-                                                            " TrangThaiPD," +
-                                                            " ThoiGianDK" +
-                                                      " FROM tblGiayDangKy " +
-                                                      " WHERE CMND LIKE '" + cmnd + "'" +
-                                                      " AND SDTNguoiDK LIKE '" + sdt + "'" +
-                                                      " OR SDTNguoiLH LIKE '" + sdt + "'");
+            if (cmnd == "" || sdt == "")
+            {
+                return Json("{ }", JsonRequestBehavior.AllowGet); ;
+            }
+            string query = "SELECT T1.IdGiayDK AS 'IdGiayDK'," +
+                                                            " T2.Ten AS 'TenNguoiDK'," +
+                                                            " T1.TenNguoiLH," +
+                                                            " T2.SDT AS 'SDTNguoiDK'," +
+                                                            " T1.SDTNguoiLH," +
+                                                            " T3.TenDTC," +
+                                                            " T2.CMND AS 'CMND'," +
+                                                            " T1.NgayTiem," +
+                                                            " T1.BuoiTiem," +
+                                                            " T1.TrangThaiPD," +
+                                                            " T1.ThoiGianDK," +
+                                                            " T1.UpdateTime," +
+                                                            " T1.DeleteFlag" +
+                                                      " FROM tblGiayDangKy T1 INNER JOIN tblThongTin T2 ON T1.IdThongTin = T2.Id" +
+                                                      " LEFT JOIN tblDiemTiemChung T3 ON T1.IdDTC = T3.IdDTC " +
+                                                      " WHERE T1.DeleteFlag = 0 AND T2.CMND LIKE '" + cmnd + "'" +
+                                                      " AND (T2.SDT LIKE '" + sdt + "'" +
+                                                      " OR T1.SDTNguoiLH LIKE '" + sdt + "')";
+
+            DataTable tb = DataProvider.ExecuteQuery(query);
             string json = DataProvider.DataTableToJsonObj(tb);
             return Json(json, JsonRequestBehavior.AllowGet);
         }
@@ -51,20 +63,25 @@ namespace ECOVAX.Controllers
         [HttpGet]
         public ActionResult GetGiayChungNhan(string cmnd, string ten)
         {
-            DataTable tb = DataProvider.ExecuteQuery("SELECT  T1.IdGiayCN," +
-                                                            " T1.TenCongDan," +
-                                                            " T1.CMND," +
-                                                            " T1.ThoiGianCap," +
-                                                            " T1.NoiDung," +
-                                                            " T3.TenDTC," +
-                                                            " T2.TenVaccine," +
-                                                            " T1.ThoiGianTiem" +
+            if (cmnd == "" || ten == "")
+            {
+                return Json("{ }", JsonRequestBehavior.AllowGet); ;
+            }
+            string query = "SELECT  T1.IdGiayCN," +
+                                                            " T1.SoMui," +
+                                                            " T1.LoVaccine," +
+                                                            " T1.TenVaccine," +
+                                                            " T1.ThoiGianTiem," +
+                                                            " T2.TenDTC," +
+                                                            " T3.Ten," +
+                                                            " T3.CMND" +
                                                       " FROM tblGiayChungNhan T1" +
-                                                      " LEFT JOIN tblVaccine T2 ON T1.IdVaccine = T2.IdVaccine" +
-                                                      " LEFT JOIN tblDiemTiemChung T3 ON T1.IdDTC = T3.IdDTC" +
-                                                      " WHERE CMND LIKE '" + cmnd + "'" +
-                                                      "     AND dbo.removeSign(T1.TenCongDan) LIKE N'%" + ten + "%'" +
-                                                      "     OR T1.TenCongDan LIKE N'%" + ten + "%'");
+                                                      " LEFT JOIN tblDiemTiemChung T2 ON T1.IdDTC = T2.IdDTC" +
+                                                      " INNER JOIN tblThongTin T3 ON T3.Id = T1.IdThongTin" +
+                                                      " WHERE T1.DeleteFlag = 0 AND T3.CMND LIKE '" + cmnd + "'" +
+                                                      "     AND (dbo.removeSign(T3.Ten) LIKE N'%" + ten + "%'" +
+                                                      "     OR T3.Ten LIKE N'%" + ten + "%')";
+            DataTable tb = DataProvider.ExecuteQuery(query);
             string json = DataProvider.DataTableToJsonObj(tb);
             return Json(json, JsonRequestBehavior.AllowGet);
         }
@@ -75,14 +92,15 @@ namespace ECOVAX.Controllers
             string query = "SELECT TOP 20 T1.IdDTC," +
                                     " T1.DiaChi," +
                                     " T1.TenDTC," +
-                                    " T2.TenCanBo," +
-                                    " T2.SDT" +
+                                    " T3.Ten AS TenCanBo," +
+                                    " T3.SDT" +
                            " FROM tblDiemTiemChung T1" +
-                           " LEFT JOIN tblTaiKhoan T2 ON T1.IdTaiKhoan = T2.IdTaiKhoan";
+                           " LEFT JOIN tblTaiKhoan T2 ON T2.IdTaiKhoan = T1.IdTaiKhoan" +
+                           " LEFT JOIN tblThongTin T3 ON T3.Id = T2.IdThongTin WHERE T1.DeleteFlag = 0";
 
             if (tinhThanh != "")
             {
-                query += " WHERE T1.DiaChi LIKE N'%" + tinhThanh + "%'";
+                query += " WHERE T1.DeleteFlag = 0 AND T1.DiaChi LIKE N'%" + tinhThanh + "%'";
             }
             if (quanHuyen != "")
             {
@@ -95,6 +113,25 @@ namespace ECOVAX.Controllers
             DataTable tb = DataProvider.ExecuteQuery(query);
             string json = DataProvider.DataTableToJsonObj(tb);
             return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult XoaGiayDangKy(string idGDK, string updateTime)
+        {
+            DataTable tb = DataProvider.ExecuteQuery("SELECT UpdateTime FROM tblGiayDangKy" +
+                                                        " WHERE IdGiayDK LIKE '" + idGDK + "' AND UpdateTime LIKE '" + updateTime + "'");
+
+            if (tb.Rows.Count == 0)
+            {
+                return new HttpStatusCodeResult(500, null);
+            }
+
+            int i = DataProvider.ExecuteNonQuery("exec DELETE_LOGIC_tblGiayDangKy @idGiayDK", new object[] { idGDK });
+            if (i > 0)
+            {
+                return Json("{}", JsonRequestBehavior.AllowGet);
+            }
+            return new HttpStatusCodeResult(500, null);
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿$(document).ready(function () {
-    getTinhThanhPhoData();
+﻿getTinhThanhPhoData();
+$(document).ready(function () {
     $('#ddlTinhThanhPho').on('change', function () {
         getQuanHuyenData(this.value);
     });

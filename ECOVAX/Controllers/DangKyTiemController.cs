@@ -28,14 +28,6 @@ namespace ECOVAX.Controllers
                 giayDangKyViewModel.DdlQuanHe.Add(new SelectListItem() { Text = i + 1 + ". " + text, Value = value });
             }
 
-            tb = DataProvider.ExecuteQuery("SELECT * FROM tblDiemTiemChung");
-            for (int i = 0; i < tb.Rows.Count; i++)
-            {
-                string text = tb.Rows[i]["TenDTC"].ToString();
-                string value = tb.Rows[i]["IdDTC"].ToString();
-                giayDangKyViewModel.DdlDiemTiemChung.Add(new SelectListItem() { Text = text, Value = value });
-            }
-
             tb = DataProvider.ExecuteQuery("SELECT * FROM tblDdlDoiTuongUuTien");
             for (int i = 0; i < tb.Rows.Count; i++)
             {
@@ -103,12 +95,12 @@ namespace ECOVAX.Controllers
         private void GetDanhMucSangLoc()
         {
             phieuSangLocViewModel = new PhieuSangLocViewModel();
-            DataTable tb = DataProvider.ExecuteQuery("SELECT * FROM tblDanhMucSangLoc");
+            DataTable tb = DataProvider.ExecuteQuery("SELECT * FROM tblPhieuSangLoc WHERE DeleteFlag = 0");
             DanhMucSangLocModel danhMuc;
             foreach (DataRow row in tb.Rows)
             {
                 danhMuc = new DanhMucSangLocModel();
-                danhMuc.IdDanhMuc = (int)row["IdDanhMuc"];
+                danhMuc.IdDanhMuc = (int)row["IdPhieuSangLoc"];
                 danhMuc.TenDanhMuc = row["TenDanhMuc"].ToString();
                 phieuSangLocViewModel.listDanhMucSangLoc.Add(danhMuc);
             }
@@ -116,10 +108,26 @@ namespace ECOVAX.Controllers
 
         private void InsertGiayDangKy()
         {
-            if (giayDangKyViewModel != null)
+            if (giayDangKyViewModel != null && phieuSangLocViewModel != null)
             {
                 string idGiayDK = DataProvider.GetNewId(Constant.ID_GIAYDK_PREFIX);
                 giayDangKyViewModel.DiaChi += " " + giayDangKyViewModel.DiaChiHanhChinh;
+
+                string idThongTin = "";
+                //Check Exist Thong tin
+                DataTable tb = DataProvider.ExecuteQuery("SELECT Id FROM tblThongTin WHERE CMND LIKE '" + giayDangKyViewModel.CMND + "'");
+                if (tb.Rows.Count > 0)
+                {
+                    idThongTin = tb.Rows[0]["Id"].ToString();
+                }
+                else
+                {
+                    tb = DataProvider.ExecuteQuery("EXEC INSERT_tblThongTin @Ten , @SDT , @CMND , @DiaChi , @NgaySinh , @GioiTinh",
+                        new object[] {giayDangKyViewModel.TenNguoiDK, giayDangKyViewModel.SDTNguoiDK, giayDangKyViewModel.CMND,
+                        giayDangKyViewModel.DiaChi, giayDangKyViewModel.NgaySinh, giayDangKyViewModel.GioiTinh});
+
+                    idThongTin = tb.Rows[0]["Id"].ToString();
+                }
 
                 if (giayDangKyViewModel.SoMui == "1")
                 {
@@ -128,57 +136,41 @@ namespace ECOVAX.Controllers
                 }
                 object[] giayDKObject = new object[]
                 {
-                idGiayDK,
-                giayDangKyViewModel.DiemTiemChung,
-                giayDangKyViewModel.TenNguoiDK,
-                giayDangKyViewModel.SDTNguoiDK,
-                giayDangKyViewModel.CMND,
-                giayDangKyViewModel.DiaChi,
-                giayDangKyViewModel.Email,
-                giayDangKyViewModel.NhomUuTien,
-                giayDangKyViewModel.GioiTinh,
-                giayDangKyViewModel.NgaySinh,
-                giayDangKyViewModel.NgheNghiep,
-                giayDangKyViewModel.TenNguoiLH,
-                giayDangKyViewModel.SDTNguoiLH,
-                giayDangKyViewModel.QuanHe,
-                giayDangKyViewModel.NgayTiem,
-                giayDangKyViewModel.BuoiTiem,
-                giayDangKyViewModel.SoMui,
-                Constant.TRANG_THAI_CHO_XN,
-                giayDangKyViewModel.TenVaccineMuiMot,
-                giayDangKyViewModel.NgayTiemMuiMot
+                    idGiayDK,
+                    idThongTin,
+                    giayDangKyViewModel.Email,
+                    giayDangKyViewModel.NhomUuTien,
+                    giayDangKyViewModel.NgheNghiep,
+                    giayDangKyViewModel.TenNguoiLH,
+                    giayDangKyViewModel.SDTNguoiLH,
+                    giayDangKyViewModel.QuanHe,
+                    giayDangKyViewModel.SoMui,
+                    Constant.TRANG_THAI_CHO_XN,
+                    giayDangKyViewModel.TenVaccineMuiMot,
+                    giayDangKyViewModel.NgayTiemMuiMot,
+                    giayDangKyViewModel.NgayTiem,
+                    giayDangKyViewModel.BuoiTiem
                 };
 
                 DataProvider.ExecuteNonQuery("EXEC INSERT_tblGiayDangKy @IdGiayDK ," +
-                                                                       " @IdDTC , " +
-                                                                       " @TenNguoiDK , " +
-                                                                       " @SDTNguoiDK , " +
-                                                                       " @CMND , " +
-                                                                       " @DiaChi , " +
+                                                                       " @IdThongTin , " +
                                                                        " @Email , " +
                                                                        " @NhomUuTien , " +
-                                                                       " @GioiTinh , " +
-                                                                       " @NgaySinh , " +
                                                                        " @NgheNghiep , " +
                                                                        " @TenNguoiLH , " +
                                                                        " @SDTNguoiLH , " +
                                                                        " @QuanHe , " +
-                                                                       " @NgayTiem , " +
-                                                                       " @BuoiTiem , " +
                                                                        " @SoMui , " +
                                                                        " @TrangThaiPD , " +
                                                                        " @TenVaccineMuiMot , " +
-                                                                       " @NgayTiemMuiMot ", giayDKObject);
-
-                string idPhieuSL = DataProvider.GetNewId(Constant.ID_PHIEUSL_PREFIX);
-
-                DataProvider.ExecuteNonQuery("EXEC INSERT_tblPhieuSangLoc @IdPhieuSangLoc , @IdGiayDK", new object[] { idPhieuSL, idGiayDK });
+                                                                       " @NgayTiemMuiMot , " +
+                                                                       " @NgayTiem ," +
+                                                                       " @BuoiTiem ", giayDKObject);
 
                 foreach (DanhMucSangLocModel item in phieuSangLocViewModel.listDanhMucSangLoc)
                 {
-                    DataProvider.ExecuteNonQuery("EXEC INSRERT_tblChiTietPhieuSangLoc @IdDanhMuc , @IdPhieuSangLoc , @TrangThai", new object[] {
-                    item.IdDanhMuc, idPhieuSL, item.TrangThai });
+                    DataProvider.ExecuteNonQuery("EXEC INSERT_tblChiTietPhieuSangLoc @IdGiayDK , @IdPhieuSangLoc , @TrangThai", new object[] {
+                    idGiayDK, item.IdDanhMuc, item.TrangThai });
                 }
 
                 giayDangKyViewModel = null;

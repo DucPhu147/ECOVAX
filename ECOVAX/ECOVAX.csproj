@@ -90,6 +90,27 @@
   <ItemGroup>
     <Content Include="Content\bootstrap\bootstrap-select.min.css" />
     <Content Include="Content\bootstrap\bootstrap.min.css" />
+    <Content Include="Content\dashboard\css\main.css" />
+    <Content Include="Scripts\dashboard\js\bootstrap.min.js" />
+    <Content Include="Scripts\dashboard\js\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\dashboard\js\main.js" />
+    <Content Include="Scripts\dashboard\js\plugins\bootstrap-datepicker.min.js" />
+    <Content Include="Scripts\dashboard\js\plugins\bootstrap-notify.min.js" />
+    <Content Include="Scripts\dashboard\js\plugins\chart.js" />
+    <Content Include="Scripts\dashboard\js\plugins\dataTables.bootstrap.min.js" />
+    <Content Include="Scripts\dashboard\js\plugins\dropzone.js" />
+    <Content Include="Scripts\dashboard\js\plugins\fullcalendar.min.js" />
+    <Content Include="Scripts\dashboard\js\plugins\jquery-ui.custom.min.js" />
+    <Content Include="Scripts\dashboard\js\plugins\jquery.dataTables.min.js" />
+    <Content Include="Scripts\dashboard\js\plugins\jquery.vmap.min.js" />
+    <Content Include="Scripts\dashboard\js\plugins\jquery.vmap.sampledata.js" />
+    <Content Include="Scripts\dashboard\js\plugins\jquery.vmap.world.js" />
+    <Content Include="Scripts\dashboard\js\plugins\moment.min.js" />
+    <Content Include="Scripts\dashboard\js\plugins\pace.min.js" />
+    <Content Include="Scripts\dashboard\js\plugins\select2.min.js" />
+    <Content Include="Scripts\dashboard\js\plugins\sweetalert.min.js" />
+    <Content Include="Scripts\dashboard\js\popper.min.js" />
+    <Content Include="Content\floating-labels.css" />
     <Content Include="Content\fontawesome-pro-5.13.0-web\css\all.css" />
     <Content Include="Content\fontawesome-pro-5.13.0-web\css\all.min.css" />
     <Content Include="Content\fontawesome-pro-5.13.0-web\css\brands.css" />
@@ -7984,6 +8005,7 @@
     <Content Include="Content\fontawesome-pro-5.13.0-web\webfonts\fa-light-300.svg" />
     <Content Include="Content\fontawesome-pro-5.13.0-web\webfonts\fa-regular-400.svg" />
     <Content Include="Content\fontawesome-pro-5.13.0-web\webfonts\fa-solid-900.svg" />
+    <Content Include="Content\image\login-background.jpg" />
     <Content Include="Content\stepper.css" />
     <Content Include="Content\dang-ky-tiem.css" />
     <Content Include="Content\trang-chu.css" />
@@ -8070,12 +8092,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="bin\RouteConfig.cs" />
+    <Compile Include="Controllers\DangNhapController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\QuanLyGDKController.cs" />
     <Compile Include="Controllers\TraCuuController.cs" />
     <Compile Include="Controllers\TrangChuController.cs" />
     <Compile Include="Controllers\DangKyTiemController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\DanhMucSangLocModel.cs" />
     <Compile Include="Models\PhieuSangLocViewModel.cs" />
     <Compile Include="Models\GiayDangKyViewModel.cs" />
@@ -8876,6 +8902,10 @@
     <Content Include="Views\TraCuu\GiayDangKy.cshtml" />
     <Content Include="Views\TraCuu\GiayChungNhan.cshtml" />
     <Content Include="Views\TraCuu\DiemTiemChung.cshtml" />
+    <Content Include="Views\DangNhap\Index.cshtml" />
+    <Content Include="Views\Shared\_Dashboard.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\QuanLyGDK\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

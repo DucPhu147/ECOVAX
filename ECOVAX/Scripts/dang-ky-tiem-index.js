@@ -50,7 +50,7 @@
                 required: true,
             },
             NgayTiem: {
-                greaterThanDate: new Date()
+                customNgayTiemValidate: new Date()
             },
             NgaySinh: {
                 smallerThanDate: new Date()
@@ -84,9 +84,6 @@
             SdtNguoiLH: {
                 equalLength: "Số điện thoại không đúng định dạng.",
                 digits: "Số điện thoại không đúng định dạng.",
-            },
-            NgayTiem: {
-                greaterThanDate: "Ngày tiêm phải lớn hơn ngày hiện tại."
             },
             NgaySinh: {
                 smallerThanDate: "Ngày sinh phải nhỏ hơn ngày hiện tại."
@@ -159,4 +156,19 @@
             $("#firstVacInfoContainer").addClass("d-none");
         }
     });
+    $("#ddlDiemTiemChung .form-control").on('keyup', function () {
+        console.info('123');
+    });
 });
+
+jQuery.validator.addMethod("customNgayTiemValidate",
+    function (value, element, param) {
+        if (value !== "") {
+            var inputDate = new Date(value);
+            var currentDate = new Date();
+            currentDate.setDate(currentDate.getDate() + 7);
+
+            return inputDate.getTime() > currentDate.getTime();
+        }
+        return true;
+    }, 'Ngày tiêm phải lớn hơn ngày hiện tại ít nhất 7 ngày.');

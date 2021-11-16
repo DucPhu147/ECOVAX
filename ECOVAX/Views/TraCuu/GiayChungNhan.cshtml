@@ -15,21 +15,23 @@
         </ol>
     </div>
 </nav>
-<div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-md-3 mt-1">
-            <span class="required mr-2">Họ và tên</span>
-            <input type="text" class="form-control w-100 mw-100" id="txtHoTen" maxlength="255" />
-        </div>
-        <div class="col-md-3 mt-1">
-            <span class="required mr-2">CMND/CCCD</span>
-            <input type="text" class="form-control w-100 mw-100" id="txtCMND" maxlength="12" />
-        </div>
-    </div>
-    <div class="row justify-content-center mt-4 w-100">
-        <button class="btn submit-form-btn btn-submit" id="btnTraCuuGCN">Tra cứu</button>
-    </div>
 
+<div class="container-fluid">
+    <form id="formTraCuu">
+        <div class="row justify-content-center">
+            <div class="col-md-3 mt-1">
+                <span class="required mr-2">Họ và tên</span>
+                <input type="text" class="form-control w-100 mw-100" id="txtHoTen" name="txtHoten" maxlength="255" />
+            </div>
+            <div class="col-md-3 mt-1">
+                <span class="required mr-2">CMND/CCCD</span>
+                <input type="text" class="form-control w-100 mw-100" id="txtCMND" name="txtCMND" maxlength="12" />
+            </div>
+        </div>
+        <div class="row justify-content-center mt-4 w-100">
+            <button class="btn submit-form-btn btn-submit" id="btnTraCuuGCN" type="button">Tra cứu</button>
+        </div>
+    </form>
     <div class="row justify-content-center">
         <div class="col-md-10 mt-4">
             <table class="table table-bordered table-hover d-none" id="tblResult">
@@ -39,10 +41,10 @@
                         <th>Tên công dân</th>
                         <th>CMND</th>
                         <th>Tên vắc xin</th>
-                        <th>Nội dung</th>
+                        <th>Lô vắc xin</th>
+                        <th>Số mũi tiêm</th>
                         <th>Nơi cấp</th>
                         <th>Thời gian tiêm</th>
-                        <th>Thời gian cấp</th>
                     </tr>
                 </thead>
                 <tbody>

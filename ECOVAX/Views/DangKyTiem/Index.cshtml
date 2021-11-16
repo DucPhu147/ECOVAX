@@ -21,7 +21,7 @@
     </div>
 </nav>
 <div class="container-fluid">
-    <div class="row">
+    <div class="row no-gutters">
         <ol class="stepper justify-content-between w-100">
             <li class="stepper-item stepper-current ">
                 <h5 class="stepper-title">1</h5>
@@ -117,7 +117,7 @@
                 })
             </div>
             <div class="col-md-3 mt-3">
-                <span class="required">Địa chỉ</span>
+                <span class="required">Địa chỉ hiện tại</span>
                 <input type="text" class="form-control w-100" name="DiaChi" maxlength="255" value="@Model.DiaChi" placeholder="Số nhà, phố, ngách..." />
             </div>
         </div>
@@ -154,21 +154,19 @@
         </div>
         <div class="row">
             <div class="col-md-3 mt-1">
-                <span>Ngày tiêm mong muốn (dự kiến)</span>
+                <span>Ngày tiêm mong muốn (dự kiến)</span><br />
                 <input type="date" class="form-control w-100" name="NgayTiem" value="@Model.NgayTiem" />
             </div>
             <div class="col-md-3 mt-1">
-                <span>Buổi tiêm mong muốn</span> <br />
-                @Html.DropDownListFor(m => m.BuoiTiem, Model.DdlBuoiTiem, new { id = "ddlBuoiTiem", @class = "selectpicker w-100", title = "Chọn buổi tiêm..." })
-            </div>
-            <div class="col-md-6 mt-1">
-                <span>Điểm tiêm chủng</span>
-                @Html.DropDownListFor(m => m.DiemTiemChung, Model.DdlDiemTiemChung, new
+                <span>Buổi tiêm mong muốn (dự kiến)</span><br />
+                @Html.DropDownListFor(m => m.BuoiTiem, Model.DdlBuoiTiem,
+                new
                 {
-                    id = "ddlDiemTiemChung",
+                    id = "ddlBuoiTiem",
                     @class = "selectpicker w-100",
-                    title = "Chọn điểm tiêm...",
-                    data_live_search = "true",
+                    data_dropup_auto = "false",
+                    data_live_search = "false",
+                    title = "Chọn buổi tiêm..."
                 })
             </div>
         </div>
