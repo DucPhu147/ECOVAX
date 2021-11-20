@@ -45,6 +45,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -91,8 +94,10 @@
     <Content Include="Content\bootstrap\bootstrap-select.min.css" />
     <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\dashboard\css\main.css" />
+    <Content Include="Content\loading-screen.css" />
+    <Content Include="Scripts\api-hanh-chinh-vn-dashboard.js" />
+    <Content Include="Scripts\quan-ly-gdk.js" />
     <Content Include="Scripts\dashboard\js\bootstrap.min.js" />
-    <Content Include="Scripts\dashboard\js\jquery-3.3.1.min.js" />
     <Content Include="Scripts\dashboard\js\main.js" />
     <Content Include="Scripts\dashboard\js\plugins\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\dashboard\js\plugins\bootstrap-notify.min.js" />
@@ -8081,6 +8086,8 @@
     <Content Include="Content\fontawesome-pro-5.13.0-web\webfonts\fa-solid-900.woff2" />
     <Content Include="Scripts\bootstrap\bootstrap-select.min.js" />
     <Content Include="Scripts\bootstrap\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\dashboard.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-date-format.js" />
     <Content Include="Scripts\api-hanh-chinh-vn.js" />
     <Content Include="Scripts\tra-cuu.js" />
@@ -8094,13 +8101,15 @@
     <Compile Include="bin\RouteConfig.cs" />
     <Compile Include="Controllers\DangNhapController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
-    <Compile Include="Controllers\QuanLyGDKController.cs" />
+    <Compile Include="Controllers\PheDuyetGDKController.cs" />
     <Compile Include="Controllers\TraCuuController.cs" />
     <Compile Include="Controllers\TrangChuController.cs" />
     <Compile Include="Controllers\DangKyTiemController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\PheDuyetGDKViewModel.cs" />
+    <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\DanhMucSangLocModel.cs" />
     <Compile Include="Models\PhieuSangLocViewModel.cs" />
@@ -8905,7 +8914,9 @@
     <Content Include="Views\DangNhap\Index.cshtml" />
     <Content Include="Views\Shared\_Dashboard.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
-    <Content Include="Views\QuanLyGDK\Index.cshtml" />
+    <Content Include="Views\Dashboard\PheDuyetGDK.cshtml" />
+    <Content Include="Views\PheDuyetGDK\Index.cshtml" />
+    <Content Include="Views\Shared\_Popup.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

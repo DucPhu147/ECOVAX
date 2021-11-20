@@ -1,0 +1,294 @@
+﻿
+@model ECOVAX.Models.PheDuyetGDKViewModel
+@{
+    Layout = "~/Views/Shared/_Popup.cshtml";
+}
+@section popupJS
+{
+    <script src="~/Scripts/api-hanh-chinh-vn-dashboard.js"></script>
+    <script src="~/Scripts/quan-ly-gdk.js"></script>
+}
+<script>
+    $(document).ready(function () {
+        $("#btnSubmit").click(function () {
+            if ($("#pheDuyetForm").valid()) {
+                pheDuyetGDK();
+            }
+        });
+        $("#pheDuyetForm").validate({
+            errorPlacement: function (error, element) {
+                error.insertAfter(element);  // default placement for everything else
+            },
+            rules: {
+                TrangThaiPD: {
+                    required: true
+                },
+                NgayTiemThucTe: {
+                    required: true,
+                    greaterThanDate: @Model.NgayTiemMongMuon,
+                },
+                BuoiTiemThucTe: {
+                    required: true
+                },
+                IdDTC: {
+                    required: true,
+                    digits: true,
+                },
+            },
+            messages: {
+                NgayTiemThucTe: {
+                    greaterThanDate: "Ngày tiêm phải lớn hơn hoặc bằng ngày tiêm mong muốn",
+                },
+            }
+        });
+        $("#tblDTC").DataTable({
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/vi.json'
+            }
+        });
+        $("#btnSearch").click(function () {
+            getDTC();
+        });
+    });
+
+    function getDTC() {
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            data: {
+                idVaccine: $("#ddlVaccine").val(),
+            },
+            contentType: "application/json; charset=utf-8",
+            url: '/PheDuyetGDK/GetDTC',
+            success: function (jsonResult) {
+                $("#tblDTC").DataTable().clear();
+                const result = JSON.parse(jsonResult);
+                if (result.length > 0) {
+                    for (let i = 0; i < result.length; i++) {
+                        $("#tblDTC").DataTable().row.add([
+                            result[i].IdDTC,
+                            result[i].TenDTC,
+                            result[i].DiaChi,
+                            result[i].ThoiGianLamViec,
+                            result[i].Ten,
+                            result[i].SoLuong,
+                        ]).draw();
+                    }
+                } else {
+                    $("#tblDTC").DataTable().columns.adjust().draw();
+                }
+            },
+            error: function () {
+                showDangerAlert("Đã gặp lỗi khi tìm kiếm");
+            }
+        });
+    }
+
+    function pheDuyetGDK() {
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            data: {
+                buoiTiem: $("#ddlBuoiTiem").val(),
+                idDTC:$("#idDTC").val(),
+                trangThaiPD: $("#ddlTrangThai").val(),
+                ngayTiem: $("#ngayTiem").val()
+            },
+            contentType: "application/json; charset=utf-8",
+            url: '/PheDuyetGDK/PheDuyetGDK',
+            success: function (jsonResult) {
+                showSuccessAlert("Phê duyệt thành công");
+            },
+            error: function () {
+                showDangerAlert("Đã gặp lỗi khi cập nhật giấy đăng ký");
+            }
+        })
+    }
+</script>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            @using (Html.BeginForm("SubmitPhieuDangKy", "DangKyTiem",
+                FormMethod.Post, new { id = "pheDuyetForm", @class = "w-100" }))
+            {
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="tile-title">Thông tin phê duyệt</h3>
+                        <div class="form-group">
+                            <label>
+                                Tên người liên hệ:&emsp; @Model.TenNguoiLH
+                            </label>
+                            <br />
+                            <label>
+                                SĐT người liên hệ:&emsp; @Model.SDTNguoiLH
+                            </label>
+                            <br />
+                            <label>
+                                Quan hệ với người đăng ký:&emsp; @Model.QuanHe
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                Tên người đăng ký:&emsp; @Model.TenNguoiDK
+                            </label>
+                            <br />
+                            <label>
+                                CMND/ CCCD:&emsp; @Model.CMND
+                            </label>
+                            <br />
+                            <label>
+                                Ngày sinh:&emsp; @Model.NgaySinh
+                            </label>
+                            <br />
+                            <label>
+                                SDT người ĐK:&emsp; @Model.SDTNguoiDK
+                            </label>
+                            <br />
+                            <label>
+                                Địa chỉ:&emsp; @Model.DiaChi
+                            </label>
+                            <br />
+                            <label>
+                                Nghề nghiệp:&emsp; @Model.NgheNghiep
+                            </label>
+                            <br />
+                            <label>
+                                Nhóm ưu tiên:&emsp; @Model.NhomUuTien
+                            </label>
+                            <br />
+                            <label>
+                                Buổi tiêm mong muốn:&emsp; @Model.BuoiTiemMongMuon
+                            </label>
+                            <br />
+                            <label>
+                                Ngày tiêm mong muốn:&emsp; @Model.NgayTiemMongMuon
+                            </label>
+                            <br />
+                            <label>
+                                Số mũi đăng ký:&emsp; @Model.SoMui
+                            </label>
+                        </div>
+                        @if (Model.SoMui != "1")
+                        {
+                            <div class="form-group">
+                                <label>
+                                    Tên vắc xin mũi một:&emsp; @Model.VaccineMuiMot
+                                </label>
+                                <br />
+                                <label>
+                                    Ngày tiêm mũi một:&emsp; @Model.NgayTiemMuiMot
+                                </label>
+                            </div>
+                        }
+                        <div class="form-group">
+                            <label class="required">
+                                Trạng thái phê duyệt
+                            </label>
+                            @Html.DropDownListFor(m => m.TrangThaiPD, Model.DdlTrangThaiPD,
+                               new
+                               {
+                                   id = "ddlTrangThai",
+                                   @class = "form-control",
+                                   placeholder = "Chọn trạng thái..."
+                               })
+                        </div>
+                        <div class="form-group">
+                            <label class="required">
+                                Ngày tiêm
+                            </label>
+                            <input class="form-control" type="date" placeholder="Ngày tiêm" id="ngayTiem" name="NgayTiemThucTe" value="@Model.NgayTiemThucTe" />
+                        </div>
+                        <div class="form-group">
+                            <label class="required">
+                                Buổi tiêm
+                            </label>
+                            @Html.DropDownListFor(m => m.BuoiTiemThucTe, Model.DdlBuoiTiem,
+                               new
+                               {
+                                   id = "ddlBuoiTiem",
+                                   @class = "form-control",
+                                   title = "Chọn buổi tiêm..."
+                               })
+                        </div>
+                        <div class="form-group">
+                            <label class="required">
+                                Phân bổ đến điểm tiêm chủng
+                            </label>
+                            <input id="idDTC" maxlength="10" type="text" class="form-control" placeholder="Nhập mã điểm tiêm chủng" name="IdDTC" value="@Model.IdDTC" />
+                        </div>
+                        <div class="tile-footer text-right mt-4">
+                            <button class="btn btn-primary" type="button" id="btnSubmit">Phê duyệt</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h3 class="tile-title">Thông tin phiếu sàng lọc</h3>
+                        <table class="table table-hover table-bordered" id="tblPhieuSangLoc">
+                            <thead>
+                                <tr>
+                                    <th>Tên danh mục</th>
+                                    <th>Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (var index = 0; index < Model.listDanhMucSangLoc.Count; index++)
+                                {
+                                    <tr>
+                                        <td>
+                                            @(index + 1).
+                                            @Model.listDanhMucSangLoc[index].TenDanhMuc
+                                        </td>
+                                        <td class="text-center p-0">
+                                            <label>
+                                                @Model.listDanhMucSangLoc[index].TrangThai
+                                            </label>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            }
+        </div>
+        <div class="tile">
+            <div class="tile-title">
+                <h3>Tra cứu điểm tiêm chủng</h3>
+            </div>
+            <div class="form-group">
+                <label>Vắc xin</label>
+                <div class="row">
+                    <div class="col-md-3">
+                        @Html.DropDownListFor(m => m.Vaccine, Model.DdlVaccine,
+                           new
+                           {
+                               id = "ddlVaccine",
+                               @class = "form-control",
+                               title = "Chọn vắc xin muốn tìm..."
+                           })
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-dark" type="button" id="btnSearch">Tìm kiếm</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 row">
+                <table class="table table-hover table-bordered" id="tblDTC">
+                    <thead>
+                        <tr>
+                            <th>Mã điểm tiêm chủng</th>
+                            <th>Tên</th>
+                            <th>Địa chỉ</th>
+                            <th>Thời gian làm việc</th>
+                            <th>Người phụ trách</th>
+                            <th>Số lượng vắc xin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -23,9 +23,6 @@
             TenNguoiDK: {
                 required: true,
             },
-            NgaySinh: {
-                required: true,
-            },
             DiaChi: {
                 required: true,
             },
@@ -53,7 +50,9 @@
                 customNgayTiemValidate: new Date()
             },
             NgaySinh: {
-                smallerThanDate: new Date()
+                required: true,
+                smallerThanDate: new Date(),
+                checkAgeGreaterThan: 12
             },
             TenVaccineMuiMot: {
                 required: true,
@@ -156,9 +155,6 @@
             $("#firstVacInfoContainer").addClass("d-none");
         }
     });
-    $("#ddlDiemTiemChung .form-control").on('keyup', function () {
-        console.info('123');
-    });
 });
 
 jQuery.validator.addMethod("customNgayTiemValidate",
@@ -172,3 +168,17 @@ jQuery.validator.addMethod("customNgayTiemValidate",
         }
         return true;
     }, 'Ngày tiêm phải lớn hơn ngày hiện tại ít nhất 7 ngày.');
+
+jQuery.validator.addMethod("checkAgeGreaterThan",
+    function (value, element, param) {
+        var today = new Date();
+        var birthDate = new Date(value);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        console.info(age);
+        return age >= param;
+    }, 'Bạn phải đủ {0} tuổi trở lên để tiêm.');
+

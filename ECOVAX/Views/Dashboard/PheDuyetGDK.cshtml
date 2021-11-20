@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+@section dashboardJS
+{
+    <script src="~/Scripts/api-hanh-chinh-vn-dashboard.js"></script>
+    <script src="~/Scripts/quan-ly-gdk.js"></script>
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="font-weight-bold">Thời gian đăng ký</label>
+                </div>
+                <div class="col-md-12 d-inline-flex row">
+                    <div class="form-group col-md-3">
+                        <label>Từ ngày</label>
+                        <input class="form-control" type="date" id="dateFrom" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Đến ngày</label>
+                        <input class="form-control" type="date" id="dateTo" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <label class="font-weight-bold col-md-12">Địa chỉ người đăng ký</label>
+                <div class="col-md-12 d-inline-flex flex-wrap">
+                    <select id="ddlTinhThanhPho" class="form-control col-md-3">
+                    </select>
+                    <select id="ddlQuanHuyen" class="form-control col-md-3" disabled>
+                    </select>
+                    <select id="ddlPhuongXa" class="form-control col-md-3" disabled>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 font-weight-bold">Nhóm ưu tiên</div>
+                <div class="col-md-6">
+                    <select id="ddlNhomUuTien" class="form-control col-md-12">
+                    </select>
+                </div>
+            </div>
+            <div class="tile-footer text-right">
+                <button class="btn btn-primary" type="button" id="btnSearch">Tìm kiếm</button>
+            </div>
+        </div>
+        <div class="tile">
+            <table class="table table-hover table-bordered custom-table" id="tblResult">
+                <thead>
+                    <tr>
+                        <th>Mã giấy</th>
+                        <th>Thời gian đăng ký</th>
+                        <th>Người liên hệ</th>
+                        <th>SĐT người liên hệ</th>
+                        <th>Quan hệ với người ĐK</th>
+                        <th>Người đăng ký</th>
+                        <th>SĐT người đăng ký</th>
+                        <th>Ngày sinh</th>
+                        <th>Giới tính</th>
+                        <th>Địa chỉ</th>
+                        <th>CMND/CCCD</th>
+                        <th>Email</th>
+                        <th>Nghề nghiệp</th>
+                        <th>Nhóm ưu tiên</th>
+                        <th>Vắc xin mũi 1</th>
+                        <th>Ngày tiêm mũi 1</th>
+                        <th>Ngày tiêm mong muốn</th>
+                        <th>Buổi tiêm mong muốn</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

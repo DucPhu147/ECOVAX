@@ -23,5 +23,11 @@ namespace ECOVAX.Providers
                                                                             new SelectListItem() { Text = "Mũi thứ nhất", Value = "1" },
                                                                             new SelectListItem() { Text = "Mũi tiếp theo", Value = "2" }
                                                                         };
+
+        public static readonly List<SelectListItem> DDL_TRANGTHAIPD = new List<SelectListItem> {
+                                                                            new SelectListItem() { Text = "", Value = null },
+                                                                            new SelectListItem() { Text = "Xác nhận", Value = "Xác nhận" },
+                                                                            new SelectListItem() { Text = "Từ chối", Value = "Từ chối" }
+                                                                        };
     }
 }

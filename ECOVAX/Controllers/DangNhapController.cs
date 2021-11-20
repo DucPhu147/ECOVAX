@@ -17,22 +17,27 @@ namespace ECOVAX.Controllers
             return View();
         }
 
-
-        [HttpPost]
+        [HttpGet]
         public ActionResult BeginLogin(string tenDN, string mk)
         {
-            DataTable tb = DataProvider.ExecuteQuery("SELECT * " +
-                                                        " FROM tblTaiKhoan " +
-                                                        " WHERE TenTK LIKE '" + tenDN + "'" +
-                                                        " AND MatKhau LIKE '" + mk + "'");
+            DataTable tb = DataProvider.ExecuteQuery("SELECT T1.IdTaiKhoan," +
+                                                        " T1.TenTK," +
+                                                        " T1.MatKhau," +
+                                                        " T2.Ten," +
+                                                        " T2.SDT," +
+                                                        " T2.CMND," +
+                                                        " T1.UpdateTime" +
+                                                        " FROM tblTaiKhoan T1 LEFT JOIN tblThongTin T2 ON T1.IdThongTin = T2.Id" +
+                                                        " WHERE T1.TenTK LIKE '" + tenDN + "'" +
+                                                        " AND T1.MatKhau LIKE '" + mk + "'");
 
             if (tb.Rows.Count > 0)
             {
                 UserModel user = new UserModel(tb.Rows[0]);
                 Session["UserInfo"] = user;
-                return View("/Dashboard/");
+                return Json("{}", JsonRequestBehavior.AllowGet);
             }
-            return Json("{}", JsonRequestBehavior.AllowGet);
+            return new HttpStatusCodeResult(500, null);
         }
     }
 }

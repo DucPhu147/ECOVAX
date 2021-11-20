@@ -1,5 +1,18 @@
 ﻿getTinhThanhPhoData();
 $(document).ready(function () {
+    $("#ddlTinhThanhPho").select2({
+        placeholder: "Tỉnh/Thành phố",
+        allowClear: true
+    });
+    $("#ddlQuanHuyen").select2({
+        placeholder: "Quận/Huyện",
+        allowClear: true
+    });
+    $("#ddlPhuongXa").select2({
+        placeholder: "Phường/Xã",
+        allowClear: true
+    });
+
     $('#ddlTinhThanhPho').on('change', function () {
         getQuanHuyenData(this.value);
     });
@@ -17,11 +30,14 @@ function getTinhThanhPhoData() {
             var resultList = Object.entries(jsonResult);
             resultList.sort((a, b) => (a[1].name > b[1].name) ? 1 : -1);
             for (let i = 0; i < resultList.length; i++) {
-                $('#ddlTinhThanhPho').append($('<option>', {
-                    value: resultList[i][1].code,
-                    text: resultList[i][1].name_with_type
-                }));
+                var newOption = new Option(resultList[i][1].name_with_type, resultList[i][1].code, false, false);
+                $('#ddlTinhThanhPho').append(newOption);
             }
+            $('#ddlTinhThanhPho').val(null).trigger('change');
+        },
+        beforeSend: function () {
+        },
+        complete: function () {
         }
     });
 }
@@ -38,14 +54,11 @@ function getQuanHuyenData(codeTinhThanh) {
             success: function (jsonResult) {
                 var resultList = Object.entries(jsonResult);
                 resultList.sort((a, b) => (a[1].name_with_type < b[1].name_with_type) ? 1 : -1);
-
                 for (let i = 0; i < resultList.length; i++) {
-                    $('#ddlQuanHuyen').append($('<option>', {
-                        value: resultList[i][1].code,
-                        text: resultList[i][1].name_with_type
-                    }));
+                    var newOption = new Option(resultList[i][1].name_with_type, resultList[i][1].code, false, false);
+                    $('#ddlQuanHuyen').append(newOption);
                 }
-                $('#ddlQuanHuyen').selectpicker("refresh");
+                $('#ddlQuanHuyen').val(null).trigger('change');
             },
             beforeSend: function () {
             },
@@ -71,12 +84,10 @@ function getPhuongXaData(codeQuanHuyen) {
                 resultList.sort((a, b) => (a[1].name > b[1].name) ? 1 : -1);
 
                 for (let i = 0; i < resultList.length; i++) {
-                    $('#ddlPhuongXa').append($('<option>', {
-                        value: resultList[i][1].path_with_type,
-                        text: resultList[i][1].name_with_type
-                    }));
+                    var newOption = new Option(resultList[i][1].name_with_type, resultList[i][1].path_with_type, false, false);
+                    $('#ddlPhuongXa').append(newOption);
                 }
-                $('#ddlPhuongXa').selectpicker("refresh");
+                $('#ddlPhuongXa').val(null).trigger('change');
             },
             beforeSend: function () {
             },

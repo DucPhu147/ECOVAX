@@ -1,4 +1,18 @@
-﻿//Thêm method so sánh date
+﻿
+$(document).ready(function () {
+    $.ajaxSetup({
+        beforeSend: function () {
+            windowLock();
+        },
+        complete: function () {
+            const timeOut = setTimeout(function () {
+                windowUnlock();
+                clearTimeout(timeOut);
+            }, 200);
+        }
+    });
+});
+//Thêm method so sánh date
 jQuery.validator.addMethod("greaterThanDate",
     function (value, element, param) {
         if (value !== "") {
@@ -50,7 +64,6 @@ function windowLock() {
 function windowUnlock() {
     $("#windowLoadingScreen").css("display", "none");
 }
-
 function showSuccessAlert(text) {
     $("#alertDialog").removeClass("alert-danger");
     $("#alertDialog").addClass("alert-success");

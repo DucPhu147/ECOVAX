@@ -43,11 +43,10 @@ $(document).ready(function () {
     })
 });
 const pendingStatus = "Chờ xác nhận";
-const successStatus = "Đã xác nhận";
-const rejectStatus = "Không được xác nhận";
+const successStatus = "Xác nhận";
+const rejectStatus = "Từ chối";
 
 function getGDKItems() {
-    windowLock();
     $.ajax({
         type: "GET",
         dataType: "json",
@@ -97,18 +96,11 @@ function getGDKItems() {
         },
         error: function () {
             showDangerAlert("Đã gặp lỗi khi tìm kiếm");
-        },
-        complete: function () {
-            const timeOut = setTimeout(function () {
-                windowUnlock();
-                clearTimeout(timeOut);
-            }, 200);
         }
     });
 }
 
 function getGCNItems() {
-    windowLock();
     $.ajax({
         type: "GET",
         dataType: "text json",
@@ -145,20 +137,12 @@ function getGCNItems() {
         },
         error: function () {
             showDangerAlert("Đã gặp lỗi khi tìm kiếm");
-        },
-        complete: function () {
-            const timeOut = setTimeout(function () {
-                windowUnlock();
-                clearTimeout(timeOut);
-            }, 200);
         }
     });
 }
 
 
 function getDTCItems() {
-    windowLock();
-
     var tinhThanh = $("#ddlTinhThanhPho option:selected").text();
     var quanHuyen = $("#ddlQuanHuyen option:selected").text();
     var phuongXa = $("#ddlPhuongXa option:selected").text();
@@ -196,12 +180,6 @@ function getDTCItems() {
         },
         error: function (error) {
             showDangerAlert("Đã gặp lỗi khi tìm kiếm");
-        },
-        complete: function () {
-            const timeOut = setTimeout(function () {
-                windowUnlock();
-                clearTimeout(timeOut);
-            }, 200);
         }
     });
 }
@@ -223,12 +201,6 @@ function confirmDelete(idGiayDK, updateTime) {
             },
             error: function (error) {
                 showDangerAlert("Đã gặp lỗi xảy ra khi xóa");
-            },
-            complete: function () {
-                const timeOut = setTimeout(function () {
-                    windowUnlock();
-                    clearTimeout(timeOut);
-                }, 200);
             }
         });
     }

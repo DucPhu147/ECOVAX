@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+    <title>Quản trị - Cổng tiêm chủng ECOVAX</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="~/Content/image/logo.png" />
+    <!-- Main CSS-->
+    <link href="~/Content/dashboard/css/main.css" rel="stylesheet" />
+    <!-- Font-icon css-->
+    <link href="~/Content/fontawesome-pro-5.13.0-web/css/all.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/Content/loading-screen.css" rel="stylesheet" />
+    <!-- Essential javascripts for application to work-->
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <link href="~/Content/index.css" rel="stylesheet" />
+</head>
+<body class="app sidebar-mini">
+    <main class="app-content" style="margin-left: 0;margin-top: 0;">
+        @RenderBody()
+    </main>
+    <div class="window_lock_background window_loading_screen" id="windowLoadingScreen">
+        <div class="lds-ellipsis">
+            <div></div><div></div><div></div><div></div>
+        </div>
+    </div>
+    <script src="~/Scripts/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/dashboard/js/main.js"></script>
+    <script src="~/Scripts/dashboard/js/plugins/select2.min.js"></script>
+    <!-- The javascript plugin to display page loading on top-->
+    <script src="~/Scripts/dashboard/js/plugins/pace.min.js"></script>
+    <!-- Datatable plugin-->
+    <script src="~/Scripts/dashboard/js/plugins/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/dashboard/js/plugins/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.11.3/i18n/vi.json"></script>
+    <script src="https://cdn.datatables.net/fixedcolumns/4.0.1/js/dataTables.fixedColumns.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+    <script src="~/Scripts/index.js"></script>
+    @RenderSection("popupJS", required: false)
+</body>
+</html>

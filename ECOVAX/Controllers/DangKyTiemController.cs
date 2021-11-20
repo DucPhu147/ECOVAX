@@ -40,7 +40,7 @@ namespace ECOVAX.Controllers
             for (int i = 0; i < tb.Rows.Count; i++)
             {
                 string text = tb.Rows[i]["TenVaccine"].ToString();
-                string value = tb.Rows[i]["IdVaccine"].ToString();
+                string value = tb.Rows[i]["TenVaccine"].ToString();
                 giayDangKyViewModel.DdlVaccine.Add(new SelectListItem() { Text = text, Value = value });
             }
 
@@ -113,7 +113,7 @@ namespace ECOVAX.Controllers
                 string idGiayDK = DataProvider.GetNewId(Constant.ID_GIAYDK_PREFIX);
                 giayDangKyViewModel.DiaChi += " " + giayDangKyViewModel.DiaChiHanhChinh;
 
-                string idThongTin = "";
+                string idThongTin;
                 //Check Exist Thong tin
                 DataTable tb = DataProvider.ExecuteQuery("SELECT Id FROM tblThongTin WHERE CMND LIKE '" + giayDangKyViewModel.CMND + "'");
                 if (tb.Rows.Count > 0)
