@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace ECOVAX.Models
 {
-    public class PheDuyetGDKViewModel
+    public class PheDuyetGDKViewModel : BaseModel
     {
         public List<DanhMucSangLocModel> listDanhMucSangLoc { get; set; }
         public string IdGiayGK { get; set; }

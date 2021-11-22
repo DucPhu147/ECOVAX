@@ -6,105 +6,8 @@
 @section popupJS
 {
     <script src="~/Scripts/api-hanh-chinh-vn-dashboard.js"></script>
-    <script src="~/Scripts/quan-ly-gdk.js"></script>
+    <script src="~/Scripts/phe-duyet-gdk.js"></script>
 }
-<script>
-    $(document).ready(function () {
-        $("#btnSubmit").click(function () {
-            if ($("#pheDuyetForm").valid()) {
-                pheDuyetGDK();
-            }
-        });
-        $("#pheDuyetForm").validate({
-            errorPlacement: function (error, element) {
-                error.insertAfter(element);  // default placement for everything else
-            },
-            rules: {
-                TrangThaiPD: {
-                    required: true
-                },
-                NgayTiemThucTe: {
-                    required: true,
-                    greaterThanDate: @Model.NgayTiemMongMuon,
-                },
-                BuoiTiemThucTe: {
-                    required: true
-                },
-                IdDTC: {
-                    required: true,
-                    digits: true,
-                },
-            },
-            messages: {
-                NgayTiemThucTe: {
-                    greaterThanDate: "Ngày tiêm phải lớn hơn hoặc bằng ngày tiêm mong muốn",
-                },
-            }
-        });
-        $("#tblDTC").DataTable({
-            language: {
-                url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/vi.json'
-            }
-        });
-        $("#btnSearch").click(function () {
-            getDTC();
-        });
-    });
-
-    function getDTC() {
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            data: {
-                idVaccine: $("#ddlVaccine").val(),
-            },
-            contentType: "application/json; charset=utf-8",
-            url: '/PheDuyetGDK/GetDTC',
-            success: function (jsonResult) {
-                $("#tblDTC").DataTable().clear();
-                const result = JSON.parse(jsonResult);
-                if (result.length > 0) {
-                    for (let i = 0; i < result.length; i++) {
-                        $("#tblDTC").DataTable().row.add([
-                            result[i].IdDTC,
-                            result[i].TenDTC,
-                            result[i].DiaChi,
-                            result[i].ThoiGianLamViec,
-                            result[i].Ten,
-                            result[i].SoLuong,
-                        ]).draw();
-                    }
-                } else {
-                    $("#tblDTC").DataTable().columns.adjust().draw();
-                }
-            },
-            error: function () {
-                showDangerAlert("Đã gặp lỗi khi tìm kiếm");
-            }
-        });
-    }
-
-    function pheDuyetGDK() {
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            data: {
-                buoiTiem: $("#ddlBuoiTiem").val(),
-                idDTC:$("#idDTC").val(),
-                trangThaiPD: $("#ddlTrangThai").val(),
-                ngayTiem: $("#ngayTiem").val()
-            },
-            contentType: "application/json; charset=utf-8",
-            url: '/PheDuyetGDK/PheDuyetGDK',
-            success: function (jsonResult) {
-                showSuccessAlert("Phê duyệt thành công");
-            },
-            error: function () {
-                showDangerAlert("Đã gặp lỗi khi cập nhật giấy đăng ký");
-            }
-        })
-    }
-</script>
 <div class="row">
     <div class="col-md-12">
         <div class="tile">
@@ -162,22 +65,22 @@
                             </label>
                             <br />
                             <label>
-                                Ngày tiêm mong muốn:&emsp; @Model.NgayTiemMongMuon
+                                Ngày tiêm mong muốn:&emsp; <span id="txtNgayTiemMongMuon" class="font-weight-bold">@Model.NgayTiemMongMuon</span>
                             </label>
                             <br />
                             <label>
-                                Số mũi đăng ký:&emsp; @Model.SoMui
+                                Số mũi đăng ký:&emsp; <span class="font-weight-bold">@Model.SoMui</span>
                             </label>
                         </div>
                         @if (Model.SoMui != "1")
                         {
                             <div class="form-group">
                                 <label>
-                                    Tên vắc xin mũi một:&emsp; @Model.VaccineMuiMot
+                                    Tên vắc xin mũi một:&emsp;<span class="font-weight-bold"> @Model.VaccineMuiMot</span>
                                 </label>
                                 <br />
                                 <label>
-                                    Ngày tiêm mũi một:&emsp; @Model.NgayTiemMuiMot
+                                    Ngày tiêm mũi một:&emsp;<span class="font-weight-bold"> @Model.NgayTiemMuiMot</span>
                                 </label>
                             </div>
                         }
@@ -217,6 +120,18 @@
                             </label>
                             <input id="idDTC" maxlength="10" type="text" class="form-control" placeholder="Nhập mã điểm tiêm chủng" name="IdDTC" value="@Model.IdDTC" />
                         </div>
+                        <div class="form-group">
+                            <label class="required">
+                                Chỉ định vắc xin
+                            </label>
+                            @Html.DropDownListFor(m => m.Vaccine, Model.DdlVaccine,
+                               new
+                               {
+                                   id = "ddlVaccine",
+                                   @class = "form-control",
+                                   title = "Chọn vắc xin..."
+                               })
+                        </div>
                         <div class="tile-footer text-right mt-4">
                             <button class="btn btn-primary" type="button" id="btnSubmit">Phê duyệt</button>
                         </div>
@@ -254,20 +169,10 @@
         </div>
         <div class="tile">
             <div class="tile-title">
-                <h3>Tra cứu điểm tiêm chủng</h3>
+                <h3>Tra cứu điểm tiêm chủng theo vắc xin chỉ định</h3>
             </div>
             <div class="form-group">
-                <label>Vắc xin</label>
                 <div class="row">
-                    <div class="col-md-3">
-                        @Html.DropDownListFor(m => m.Vaccine, Model.DdlVaccine,
-                           new
-                           {
-                               id = "ddlVaccine",
-                               @class = "form-control",
-                               title = "Chọn vắc xin muốn tìm..."
-                           })
-                    </div>
                     <div class="col-md-4">
                         <button class="btn btn-dark" type="button" id="btnSearch">Tìm kiếm</button>
                     </div>
@@ -282,6 +187,7 @@
                             <th>Địa chỉ</th>
                             <th>Thời gian làm việc</th>
                             <th>Người phụ trách</th>
+                            <th>SĐT</th>
                             <th>Số lượng vắc xin</th>
                         </tr>
                     </thead>

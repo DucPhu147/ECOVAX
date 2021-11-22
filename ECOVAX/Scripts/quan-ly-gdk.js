@@ -10,10 +10,10 @@
         },
     });
     $("#btnSearch").on('click', function () {
-        search();
+        searchGDK();
     });
     const timeOut = setTimeout(function () {
-        search();
+        searchGDK();
         clearTimeout(timeOut);
     }, 500);
 
@@ -28,7 +28,7 @@ function getNhomUuTienItems() {
         type: "GET",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        url: '/Dashboard/GetNhomUuTien',
+        url: '/PheDuyetGDK/GetNhomUuTien',
         success: function (jsonResult) {
             const resultList = JSON.parse(jsonResult);
             for (let i = 0; i < resultList.length; i++) {
@@ -43,7 +43,7 @@ function getNhomUuTienItems() {
         }
     });
 }
-function search() {
+function searchGDK() {
     var tinhThanh = $("#ddlTinhThanhPho option:selected").text();
     var quanHuyen = $("#ddlQuanHuyen option:selected").text();
     var phuongXa = $("#ddlPhuongXa option:selected").text();
@@ -59,7 +59,7 @@ function search() {
             nhomUuTien: $('#ddlNhomUuTien').val()
         },
         contentType: "application/json; charset=utf-8",
-        url: '/Dashboard/GetGDKPheDuyet',
+        url: '/PheDuyetGDK/GetGDKPheDuyet',
         success: function (jsonResult) {
             $("#tblResult").DataTable().clear();
             const result = JSON.parse(jsonResult);
@@ -98,5 +98,11 @@ function search() {
 }
 
 function openPopup(idGiayDK) {
-    window.open('/PheDuyetGDK?idGiayDK=' + idGiayDK, 'mypopuptitle', 'width=' + screen.availWidth + ',height=' + screen.availHeight);
+    var popupWindow = window.open('/PheDuyetGDK?idGiayDK=' + idGiayDK, 'mypopuptitle', 'width=' + screen.availWidth * 0.7 + ',height=' + screen.availHeight * 0.7);
+    var timer = setInterval(function () {
+        if (popupWindow.closed) {
+            clearInterval(timer);
+            searchGDK();
+        }
+    }, 500);
 }

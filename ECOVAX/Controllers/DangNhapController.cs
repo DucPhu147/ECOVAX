@@ -34,7 +34,7 @@ namespace ECOVAX.Controllers
             if (tb.Rows.Count > 0)
             {
                 UserModel user = new UserModel(tb.Rows[0]);
-                Session["UserInfo"] = user;
+                Session[Constant.USER_INFO] = user;
                 return Json("{}", JsonRequestBehavior.AllowGet);
             }
             return new HttpStatusCodeResult(500, null);

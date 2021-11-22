@@ -1,0 +1,97 @@
+﻿
+@model ECOVAX.Models.QuanLyDTCViewModel
+@{
+    Layout = "~/Views/Shared/_Popup.cshtml";
+}
+@section popupJS
+{
+    <script src="~/Scripts/api-hanh-chinh-vn-dashboard.js"></script>
+    <script src="~/Scripts/quan-ly-dtc.js"></script>
+}
+@using (Html.BeginForm("SubmitDTCForm", "QuanLyDTC",
+    FormMethod.Post, new { id = "dtcForm", @class = "w-100" }))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="form-group col-md-4">
+                    <label class="required">Tên DTC</label>
+                    <input type="text" id="tenDTC" class="form-control" maxlength="255" name="TenDTC" value="@Model.TenDTC" />
+                </div>
+                @if (Model.Mode.Equals("2"))
+                {
+                    <div class="form-group col-md-12 row">
+                        <label class="col-md-12">Địa chỉ hiện tại: <span id="diaChiHienTai">@Model.DiaChi</span></label>
+                    </div>
+                }
+                <div class="form-group col-md-12 row">
+
+                    @if (Model.Mode.Equals("2"))
+                    {
+                        <div class="animated-checkbox col-md-12">
+                            <label>
+                                <input type="checkbox" id="cbDiaChiMoi" value="check" />
+                                <span class="label-text">Địa chỉ mới</span>
+                            </label>
+                        </div>
+                    }
+                    <div class="row col-md-12">
+                        <div class="col-md-3">
+                            @if (Model.Mode.Equals("2"))
+                            {
+                                <select id="ddlTinhThanhPho" name="TinhThanh" class="form-control w-100" disabled>
+                                </select>
+                            }
+                            else
+                            {
+                                <select id="ddlTinhThanhPho" name="TinhThanh" class="form-control w-100">
+                                </select>
+                            }
+                        </div>
+                        <div class="col-md-3">
+                            <select id="ddlQuanHuyen" class="form-control w-100" disabled>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select id="ddlPhuongXa" class="form-control w-100" disabled>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            @if (Model.Mode.Equals("2"))
+                            {
+                                <input type="text" class="form-control w-100" id="diaChiHanhChinh" name="DiaChiHanhChinh" maxlength="255" placeholder="Số nhà, tên phố,..." disabled />
+                            }
+                            else
+                            {
+                                <input type="text" class="form-control w-100" id="diaChiHanhChinh" name="DiaChiHanhChinh" maxlength="255" placeholder="Số nhà, tên phố,..." />
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="required">Thời gian làm việc</label>
+                    @Html.TextAreaFor(model => model.ThoiGianLamViec,
+                       new
+                       {
+                           id = "thoiGianLamViec",
+                           @class = "form-control",
+                           rows = 3,
+                           maxlength = 255
+                       })
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="required">Người phụ trách</label><br />
+                    @Html.DropDownListFor(m => m.IdNguoiPT, Model.DdlNguoiPT,
+                     new
+                     {
+                         id = "ddlNguoiPT",
+                         @class = "form-control w-100"
+                     })
+                </div>
+                <div class="tile-footer text-right">
+                    <button class="btn btn-primary" type="button" id="btnSubmit">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

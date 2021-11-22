@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+@section dashboardJS
+{
+    <script src="~/Scripts/api-hanh-chinh-vn-dashboard.js"></script>
+    <script src="~/Scripts/them-lo-vaccine.js"></script>
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            @using (Html.BeginForm("SubmitLoVaccine", "QuanLyDTC",
+                FormMethod.Post, new { id = "loVaccineForm", @class = "w-100" }))
+            {
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <label class="font-weight-bold required">Mã ĐTC</label>
+                        <input type="text" id="idDTC" name="IdDTC" class="form-control" placeholder="Nhập mã điểm tiểm chủng" maxlength="10" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <label class="font-weight-bold required">Vắc xin</label>
+                        <select class="form-control w-100" id="ddlVaccine" name="DdlVaccine">
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="font-weight-bold required">Số lượng</label>
+                        <input type="text" id="soLuong" class="form-control" name="SoLuong" placeholder="Nhập số lượng vắc xin" maxlength="10" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="font-weight-bold required">Lô vắc xin</label>
+                        <input type="text" id="loVaccine" class="form-control" name="LoVaccine" placeholder="Nhập số lô vắc xin" maxlength="10" />
+                    </div>
+                </div>
+                <div class="tile-footer text-right">
+                    <button class="btn btn-success" type="button" id="btnAdd">Thêm mới</button>
+                </div>
+            }
+        </div>
+        <div class="tile">
+            <table class="table table-bordered custom-table w-100" id="tblResult">
+                <thead>
+                    <tr>
+                        <th>Tên vắc xin</th>
+                        <th>Số lô</th>
+                        <th>Số lượng vắc xin</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -83,7 +83,7 @@ button:focus,
         color: #fff;
     }
 
-.alert {
+.popup-alert {
     max-width: 500px;
     position: fixed;
     top: 0;

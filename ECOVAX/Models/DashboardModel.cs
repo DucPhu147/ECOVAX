@@ -12,5 +12,6 @@ namespace ECOVAX.Models
         public string MenuId { get; set; }
 
         public string MenuName { get; set; }
+        public string SubMenuName { get; set; }
     }
 }

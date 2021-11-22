@@ -100,7 +100,7 @@ namespace ECOVAX.Controllers
 
             if (tinhThanh != "")
             {
-                query += " WHERE T1.DeleteFlag = 0 AND T1.DiaChi LIKE N'%" + tinhThanh + "%'";
+                query += " AND T1.DiaChi LIKE N'%" + tinhThanh + "%'";
             }
             if (quanHuyen != "")
             {

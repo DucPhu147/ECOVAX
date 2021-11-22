@@ -15,9 +15,13 @@
     <link href="~/Content/loading-screen.css" rel="stylesheet" />
     <!-- Essential javascripts for application to work-->
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    
     <link href="~/Content/index.css" rel="stylesheet" />
 </head>
 <body class="app sidebar-mini">
+    <div class="alert custom-alert w-100" id="alertBar" role="alert">
+        This is a primary alert—check it out!
+    </div>
     <main class="app-content" style="margin-left: 0;margin-top: 0;">
         @RenderBody()
     </main>
@@ -38,6 +42,7 @@
     <script src="https://cdn.datatables.net/fixedcolumns/4.0.1/js/dataTables.fixedColumns.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
     <script src="~/Scripts/index.js"></script>
+    <script src="~/Scripts/dashboard.js"></script>
     @RenderSection("popupJS", required: false)
 </body>
 </html>

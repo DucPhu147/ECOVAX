@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+@section dashboardJS
+{
+    <script src="~/Scripts/api-hanh-chinh-vn-dashboard.js"></script>
+    <script src="~/Scripts/quan-ly-dtc.js"></script>
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-h text-right">
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label class="font-weight-bold">Mã ĐTC</label>
+                    <input type="text" id="idDTC" class="form-control" />
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="font-weight-bold">Tên ĐTC</label>
+                    <input type="text" id="tenDTC" class="form-control" />
+                </div>
+                <div class="form-group col-md-6 text-right">
+                    <button class="btn btn-success" type="button" id="btnAdd">Thêm mới</button>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="font-weight-bold col-md-12">Địa chỉ điểm tiêm</label>
+                <div class="col-md-12 d-inline-flex flex-wrap">
+                    <select id="ddlTinhThanhPho" class="form-control col-md-3">
+                    </select>
+                    <select id="ddlQuanHuyen" class="form-control col-md-3" disabled>
+                    </select>
+                    <select id="ddlPhuongXa" class="form-control col-md-3" disabled>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="animated-checkbox">
+                    <label>
+                        <input type="checkbox" id="cbDelFlag" value="check" />
+                        <span class="label-text">Đã xóa</span>
+                    </label>
+                </div>
+            </div>
+            <div class="tile-footer text-right">
+                <button class="btn btn-primary" type="button" id="btnSearch">Tìm kiếm</button>
+            </div>
+        </div>
+        <div class="tile">
+            <table class="table table-bordered custom-table w-100" id="tblResult">
+                <thead>
+                    <tr>
+                        <th>Mã ĐTC</th>
+                        <th>Tên điểm tiêm</th>
+                        <th>Địa chỉ</th>
+                        <th>Thời gian làm việc</th>
+                        <th>Người phụ trách</th>
+                        <th>SĐT</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

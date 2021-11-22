@@ -16,5 +16,7 @@ namespace ECOVAX.Providers
         public static readonly string ID_GIAYCN_PREFIX = "GCN";
 
         public static readonly string ID_PHIEUSL_PREFIX = "PSL";
+
+        public static readonly string USER_INFO = "UserInfo";
     }
 }

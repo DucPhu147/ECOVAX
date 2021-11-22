@@ -96,6 +96,9 @@
     <Content Include="Content\dashboard\css\main.css" />
     <Content Include="Content\loading-screen.css" />
     <Content Include="Scripts\api-hanh-chinh-vn-dashboard.js" />
+    <Content Include="Scripts\phe-duyet-gdk.js" />
+    <Content Include="Scripts\them-lo-vaccine.js" />
+    <Content Include="Scripts\quan-ly-dtc.js" />
     <Content Include="Scripts\quan-ly-gdk.js" />
     <Content Include="Scripts\dashboard\js\bootstrap.min.js" />
     <Content Include="Scripts\dashboard\js\main.js" />
@@ -8102,12 +8105,15 @@
     <Compile Include="Controllers\DangNhapController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\PheDuyetGDKController.cs" />
+    <Compile Include="Controllers\QuanLyDTCController.cs" />
     <Compile Include="Controllers\TraCuuController.cs" />
     <Compile Include="Controllers\TrangChuController.cs" />
     <Compile Include="Controllers\DangKyTiemController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\QuanLyDTCViewModel.cs" />
     <Compile Include="Models\PheDuyetGDKViewModel.cs" />
     <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -8917,6 +8923,9 @@
     <Content Include="Views\Dashboard\PheDuyetGDK.cshtml" />
     <Content Include="Views\PheDuyetGDK\Index.cshtml" />
     <Content Include="Views\Shared\_Popup.cshtml" />
+    <Content Include="Views\Dashboard\QuanLyDTC.cshtml" />
+    <Content Include="Views\QuanLyDTC\Index.cshtml" />
+    <Content Include="Views\Dashboard\ThemLoVaccine.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

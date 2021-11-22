@@ -15,15 +15,15 @@ $(document).ready(function () {
 //Thêm method so sánh date
 jQuery.validator.addMethod("greaterThanDate",
     function (value, element, param) {
-        if (value !== "") {
-            return new Date(value).getTime() > new Date(param).getTime();
+        if (value !== "" && param !== "") {
+            return new Date(value).getTime() >= new Date(param).getTime();
         }
         return true;
     }, 'Ngày phải lớn hơn {0}.');
 
 jQuery.validator.addMethod("smallerThanDate",
     function (value, element, param) {
-        if (value !== "") {
+        if (value !== "" && param !== "") {
             return new Date(value).getTime() < new Date(param).getTime();
         }
         return true;
