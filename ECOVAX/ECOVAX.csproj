@@ -97,6 +97,8 @@
     <Content Include="Content\loading-screen.css" />
     <Content Include="Scripts\api-hanh-chinh-vn-dashboard.js" />
     <Content Include="Scripts\phe-duyet-gdk.js" />
+    <Content Include="Scripts\danh-muc-phieu-sang-loc.js" />
+    <Content Include="Scripts\thong-tin-vaccine.js" />
     <Content Include="Scripts\them-lo-vaccine.js" />
     <Content Include="Scripts\quan-ly-dtc.js" />
     <Content Include="Scripts\quan-ly-gdk.js" />
@@ -8105,7 +8107,9 @@
     <Compile Include="Controllers\DangNhapController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\PheDuyetGDKController.cs" />
+    <Compile Include="Controllers\DanhMucPhieuSangLocController.cs" />
     <Compile Include="Controllers\QuanLyDTCController.cs" />
+    <Compile Include="Controllers\ThongTinVaccineController.cs" />
     <Compile Include="Controllers\TraCuuController.cs" />
     <Compile Include="Controllers\TrangChuController.cs" />
     <Compile Include="Controllers\DangKyTiemController.cs" />
@@ -8113,6 +8117,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\ThongTinVaccineViewModel.cs" />
     <Compile Include="Models\QuanLyDTCViewModel.cs" />
     <Compile Include="Models\PheDuyetGDKViewModel.cs" />
     <Compile Include="Models\DashboardModel.cs" />
@@ -8926,6 +8931,8 @@
     <Content Include="Views\Dashboard\QuanLyDTC.cshtml" />
     <Content Include="Views\QuanLyDTC\Index.cshtml" />
     <Content Include="Views\Dashboard\ThemLoVaccine.cshtml" />
+    <Content Include="Views\Dashboard\ThongTinVaccine.cshtml" />
+    <Content Include="Views\Dashboard\DanhMucPhieuSangLoc.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

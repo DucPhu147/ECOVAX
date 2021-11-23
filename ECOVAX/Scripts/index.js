@@ -1,16 +1,13 @@
-﻿
-$(document).ready(function () {
-    $.ajaxSetup({
-        beforeSend: function () {
-            windowLock();
-        },
-        complete: function () {
-            const timeOut = setTimeout(function () {
-                windowUnlock();
-                clearTimeout(timeOut);
-            }, 200);
-        }
-    });
+﻿$.ajaxSetup({
+    beforeSend: function () {
+        windowLock();
+    },
+    complete: function () {
+        const timeOut = setTimeout(function () {
+            windowUnlock();
+            clearTimeout(timeOut);
+        }, 200);
+    }
 });
 //Thêm method so sánh date
 jQuery.validator.addMethod("greaterThanDate",

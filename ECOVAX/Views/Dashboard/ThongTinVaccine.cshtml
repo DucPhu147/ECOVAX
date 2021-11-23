@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+@section dashboardJS
+{
+    <script src="~/Scripts/thong-tin-vaccine.js"></script>
+}
+<div class="row">
+    <div class="col-md-6">
+        <div class="tile">
+            @using (Html.BeginForm("SubmitVaccine", "ThongTinVaccine",
+                FormMethod.Post, new { id = "vaccineForm", @class = "w-100" }))
+            {
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="text-danger">(Lưu ý: Nếu mã là trống khi bấm "Lưuư" sẽ là thêm vắc xin mới)</label>
+                        <br />
+                        <label class="font-weight-bold">Mã vắc xin </label>
+                        <input type="text" id="idVaccine" name="IdVaccine" class="form-control" placeholder="Nhập mã vắc xin" maxlength="10" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="font-weight-bold required">Tên</label>
+                        <input type="text" id="tenVaccine" name="TenVaccine" class="form-control" placeholder="Nhập tên vắc xin" maxlength="255" />
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="font-weight-bold required">Thời gian tiêm giữa 2 mũi (ngà                                                         y)</label>
+                        <input type="text" id="thoiHanTiem" class="form-control" name="ThoiHanTiem" placeholder="Thời hạn tiêm giữa 2 mũi..." maxlength="3" />
+                    </div>
+                </div>
+                <div class="tile-footer text-right">
+                    <button class="btn btn-success" type="button" id="btnAdd">Lưu</button>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="tile">
+            <table class="table table-bordered custom-table w-100" id="tblResult">
+                <thead>
+                    <tr>
+                        <th>Mã vắc xin</th>
+                        <th>Tên vắc xin</th>
+                        <th>Thời gian tiêm giữa 2 mũi</th>
+                        <th>Xóa tạm thời</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

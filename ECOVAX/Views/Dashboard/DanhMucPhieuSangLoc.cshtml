@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+@section dashboardJS
+{
+    <script src="~/Scripts/danh-muc-phieu-sang-loc.js"></script>
+}
+<div class="row">
+    <div class="col-md-4">
+        <div class="tile">
+            @using (Html.BeginForm("SubmitPSL", "DanhMucPhieuSangLoc",
+                FormMethod.Post, new { id = "pslForm", @class = "w-100" }))
+            {
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="text-danger">(Lưu ý: Nếu mã là trống khi bấm "Lưu" sẽ là thêm danh mục mới)</label>
+                        <br />
+                        <label class="font-weight-bold">Mã danh mục </label>
+                        <input type="text" id="idPSL" name="IdPSL" class="form-control" placeholder="Nhập mã danh mục" maxlength="10" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="font-weight-bold required">Tên danh mục</label>
+                        <input type="text" id="tenPSL" name="TenPSL" class="form-control" placeholder="Nhập tên danh mục" maxlength="255" />
+                    </div>
+                </div>
+                <div class="tile-footer text-right">
+                    <button class="btn btn-success" type="button" id="btnAdd">Lưu</button>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="tile">
+            <table class="table table-bordered w-100" id="tblResult">
+                <thead>
+                    <tr>
+                        <th>Mã danh mục</th>
+                        <th>Tên danh mục</th>
+                        <th>Xóa tạm thời</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

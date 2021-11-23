@@ -15,7 +15,7 @@
             NgayTiemThucTe: {
                 required: true,
                 customGreaterThanDate: $("#txtNgayTiemMongMuon").text(),
-                greaterThanDate: $("#txtNgayTiemMongMuon").text(),
+                customGreaterThanDate2: $("#txtNgayTiemMongMuon").text(),
             },
             BuoiTiemThucTe: {
                 required: true
@@ -23,11 +23,6 @@
             IdDTC: {
                 required: true,
                 digits: true,
-            },
-        },
-        messages: {
-            NgayTiemThucTe: {
-                greaterThanDate: "Ngày tiêm phải lớn hơn hoặc bằng ngày tiêm mong muốn"
             },
         }
     });
@@ -66,7 +61,16 @@ jQuery.validator.addMethod("customGreaterThanDate",
         return true;
     }, 'Ngày tiêm phải lớn hơn ngày hiện tại ít nhất 3 ngày.');
 
+jQuery.validator.addMethod("customGreaterThanDate2",
+    function (value, element, param) {
+        if (value !== "" && param !== "") {
+            return new Date(value).getTime() >= new Date(param).getTime();
+        }
+        return true;
+    }, 'Ngày tiêm phải lớn hơn hoặc bằng ngày tiêm mong muốn.');
+
 function getDTC() {
+
     $.ajax({
         type: "GET",
         dataType: "json",

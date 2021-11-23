@@ -61,5 +61,27 @@ namespace ECOVAX.Controllers
             dashboardModel.MenuName = "Thêm lô vắc xin";
             return View("ThemLoVaccine", dashboardModel);
         }
+        public ActionResult ThongTinVaccine()
+        {
+            if (Session[Constant.USER_INFO] == null)
+            {
+                return RedirectToAction("Index", "DangNhap");
+            }
+            dashboardModel = new DashboardModel();
+            dashboardModel.MenuId = System.Reflection.MethodBase.GetCurrentMethod().Name;
+            dashboardModel.MenuName = "Thông tin vắc xin";
+            return View("ThongTinVaccine", dashboardModel);
+        }
+        public ActionResult DanhMucPhieuSangLoc()
+        {
+            if (Session[Constant.USER_INFO] == null)
+            {
+                return RedirectToAction("Index", "DangNhap");
+            }
+            dashboardModel = new DashboardModel();
+            dashboardModel.MenuId = System.Reflection.MethodBase.GetCurrentMethod().Name;
+            dashboardModel.MenuName = "Danh mục phiếu sàng lọc";
+            return View("DanhMucPhieuSangLoc", dashboardModel);
+        }
     }
 }

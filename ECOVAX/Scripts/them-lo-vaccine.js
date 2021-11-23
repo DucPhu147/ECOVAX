@@ -43,11 +43,12 @@
     });
 });
 function searchLoVaccine() {
+    var idDTC = !$("#idDTC").val() ? 0 : $("#idDTC").val();
     $.ajax({
         type: "GET",
         dataType: "json",
         data: {
-            idDTC: $("#idDTC").val(),
+            idDTC: idDTC,
         },
         contentType: "application/json; charset=utf-8",
         url: '/QuanLyDTC/GetLoVaccine',
