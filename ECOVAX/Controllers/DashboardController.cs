@@ -83,5 +83,17 @@ namespace ECOVAX.Controllers
             dashboardModel.MenuName = "Danh mục phiếu sàng lọc";
             return View("DanhMucPhieuSangLoc", dashboardModel);
         }
+        public ActionResult QuanLyGCN()
+        {
+            if (Session[Constant.USER_INFO] == null)
+            {
+                return RedirectToAction("Index", "DangNhap");
+            }
+            dashboardModel = new DashboardModel();
+            dashboardModel.MenuId = System.Reflection.MethodBase.GetCurrentMethod().Name;
+            dashboardModel.MenuName = "Quản lý giấy chứng nhận";
+
+            return View("QuanLyGCN", dashboardModel);
+        }
     }
 }

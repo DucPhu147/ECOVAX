@@ -63,12 +63,18 @@
 function submitForm() {
     var diaChi;
     var diaChiHanhChinh;
-    if ($("#cbDiaChiMoi").is(":checked")) {
+    if ($("#cbDiaChiMoi").is(":checked") || !$("#cbDiaChiMoi").length) {
         diaChi = $("#ddlPhuongXa option:selected").val();
         diaChiHanhChinh = $("#diaChiHanhChinh").val();
+
     } else {
         diaChi = "";
         diaChiHanhChinh = $("#diaChiHienTai").text();
+    }
+    if ($("#cbDiaChiMoi").length) {
+        if (!confirm("Bạn có chắc muốn cập nhật điểm tiêm chủng này?")) {
+            return;
+        }
     }
 
     $.ajax({
@@ -87,12 +93,18 @@ function submitForm() {
         success: function (jsonResult) {
             if ($("#diaChiHienTai").length) {
                 showSuccessAlert("Cập nhật điểm tiêm chủng thành công");
+                $("#btnSubmit").prop('disabled', true);
                 var timer = setInterval(function () {
                     location.reload();
                     clearTimeout(timer);
                 }, 2000);
             } else {
                 showSuccessAlert("Thêm điểm tiêm chủng thành công");
+                $("#btnSubmit").prop('disabled', true);
+                var timer = setInterval(function () {
+                    location.href = "QuanLyDTC?idDTC=" + jsonResult + "&mode=2";
+                    clearTimeout(timer);
+                }, 2000);
             }
         },
         error: function () {

@@ -45,11 +45,13 @@ function showAlert(text) {
 } function showSuccessAlert(text) {
     $("#alertBar").removeClass("alert-danger");
     $("#alertBar").addClass("alert-success");
+    $("#alertBar").addClass("d-block");
     showAlert(text);
 }
 function showDangerAlert(text) {
     $("#alertBar").removeClass("alert-success");
     $("#alertBar").addClass("alert-danger");
+    $("#alertBar").addClass("d-block");
     showAlert(text);
 }
 

@@ -43,8 +43,8 @@ function searchPhieuSangLoc() {
 
                     if (result[i].DeleteFlag == "1") {
                         delFlag = "<i class='fas fa-circle'></i>";
-                        action = "<a href='#' class='text-success' onClick='requestDelete(\"" + result[i].IdPhieuSangLoc + "\",0)' title='Khôi phục'><i class='fal fa-plus'></i></a>" +
-                            "<a href='#' class='text-danger ml-3' onClick='requestRemove(\"" + result[i].IdPhieuSangLoc + "\")' title='Xóa khỏi hệ thống'><i class='fal fa-trash'></i></a>";
+                        action = "<div class='d-inline-flex'><a href='#' class='text-success' onClick='requestDelete(\"" + result[i].IdPhieuSangLoc + "\",0)' title='Khôi phục'><i class='fal fa-plus'></i></a>" +
+                            "<a href='#' class='text-danger ml-3' onClick='requestRemove(\"" + result[i].IdPhieuSangLoc + "\")' title='Xóa khỏi hệ thống'><i class='fal fa-trash'></i></a></div>";
                     }
                     //Gỡ hoàn toàn
 

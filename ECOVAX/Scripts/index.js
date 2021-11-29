@@ -21,7 +21,11 @@ jQuery.validator.addMethod("greaterThanDate",
 jQuery.validator.addMethod("smallerThanDate",
     function (value, element, param) {
         if (value !== "" && param !== "") {
-            return new Date(value).getTime() < new Date(param).getTime();
+            var curDate = new Date();
+            var valueDate = new Date(value);
+            curDate.setHours(0,0,0,0);
+            valueDate.setHours(0,0,0,0);
+            return valueDate < curDate;
         }
         return true;
     }, 'Ngày phải nhỏ hơn {0}.');

@@ -98,29 +98,31 @@ namespace ECOVAX.Controllers
         [HttpGet]
         public ActionResult SubmitDTCForm(string diaChiHanhChinh, string diaChi, string tenDTC, string idNguoiPT, string thoiGianLamViec)
         {
-            DataTable tb = DataProvider.ExecuteQuery("SELECT * FROM tblDiemTiemChung WHERE IdDTC LIKE '" + dtcModel.IdDTC + "' AND UpdateTime LIKE '" + dtcModel.UpdateTime + "'");
-            if (tb.Rows.Count == 0)
+            DataTable tb;
+            if (dtcModel.UpdateTime != null)
             {
-                return new HttpStatusCodeResult(500, null);
+                tb = DataProvider.ExecuteQuery("SELECT * FROM tblDiemTiemChung WHERE IdDTC LIKE '" + dtcModel.IdDTC + "' AND UpdateTime LIKE '" + dtcModel.UpdateTime + "'");
+                if (tb.Rows.Count == 0)
+                {
+                    return new HttpStatusCodeResult(500, null);
+                }
             }
 
             diaChiHanhChinh += " " + diaChi;
-            int result;
             if (dtcModel.Mode == "2")
             {
-                result = DataProvider.ExecuteNonQuery("EXEC UPDATE_tblDiemTiemChung @IdDTC , @DiaChi , @TenDTC , @ThoiGianLamViec , @IdTaiKhoan",
+                tb = DataProvider.ExecuteQuery("EXEC UPDATE_tblDiemTiemChung @IdDTC , @DiaChi , @TenDTC , @ThoiGianLamViec , @IdTaiKhoan",
                      new object[] { dtcModel.IdDTC, diaChiHanhChinh, tenDTC, thoiGianLamViec, idNguoiPT });
+
+                return Json("{}", JsonRequestBehavior.AllowGet);
             }
             else
             {
-                result = DataProvider.ExecuteNonQuery("EXEC INSERT_tblDiemTiemChung @DiaChi , @TenDTC , @ThoiGianLamViec , @IdTaiKhoan",
+                tb = DataProvider.ExecuteQuery("EXEC INSERT_tblDiemTiemChung @DiaChi , @TenDTC , @ThoiGianLamViec , @IdTaiKhoan",
                      new object[] { diaChiHanhChinh, tenDTC, thoiGianLamViec, idNguoiPT });
+
+                return Json(tb.Rows[0]["IdDTC"], JsonRequestBehavior.AllowGet);
             }
-            if (result == 0)
-            {
-                return new HttpStatusCodeResult(500, null);
-            }
-            return Json("{}", JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
