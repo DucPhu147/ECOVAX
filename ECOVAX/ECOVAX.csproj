@@ -8937,6 +8937,7 @@
     <Content Include="Views\Dashboard\ThongTinVaccine.cshtml" />
     <Content Include="Views\Dashboard\DanhMucPhieuSangLoc.cshtml" />
     <Content Include="Views\Dashboard\QuanLyGCN.cshtml" />
+    <Content Include="Views\QuanLyGCN\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -8947,7 +8948,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="App_Start\" />
-    <Folder Include="Views\QuanLyGCN\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

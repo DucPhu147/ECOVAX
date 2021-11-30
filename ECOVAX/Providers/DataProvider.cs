@@ -76,7 +76,7 @@ namespace ECOVAX.Providers
 
         public static string GetNewId(string prefix = "")
         {
-            return prefix + Guid.NewGuid().ToString().Replace("-","");
+            return prefix + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 7).ToUpper();
         }
 
         public static string DataTableToJsonObj(DataTable dt)

@@ -26,14 +26,26 @@
                     <input type="text" id="loVaccine" class="form-control" />
                 </div>
                 <div class="form-group col-md-3">
-                    <label class="font-weight-bold">Tên điểm tiêm</label>
+                    <label class="font-weight-bold">Nơi cấp</label>
                     <input type="text" id="tenDTC" class="form-control" />
                 </div>
             </div>
-            <div class="form-group row col-md-4">
-                <label class="required">Người lập</label><br />
-                <select id="ddlNguoiLap" class="form-control col-md-3" disabled>
-                </select>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label class="font-weight-bold">Người lập</label>
+                    <select id="ddlNguoiLap" class="form-control">
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="font-weight-bold">Số mũi</label>
+                    <select id="ddlSoMui" class="form-control">
+                        <option value=""></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row col-md-3">
             </div>
             <div class="tile-footer text-right">
                 <button class="btn btn-primary" type="button" id="btnSearch">Tìm kiếm</button>
@@ -48,6 +60,8 @@
                         <th>Thời gian tiêm</th>
                         <th>Tên vắc xin</th>
                         <th>Lô vắc xin</th>
+                        <th>Tên người tiêm</th>
+                        <th>CMND người tiêm</th>
                         <th>Người lập</th>
                         <th>Nơi cấp</th>
                         <th></th>

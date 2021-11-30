@@ -6,18 +6,25 @@ namespace ECOVAX.Models
 {
     public class QuanLyGCNViewModel : BaseModel
     {
+        public string IdGCN { get; set; }
+        public string LoVaccine { get; set; }
+        public string TenVaccine { get; set; }
         public string IdDTC { get; set; }
-        public string TenDTC { get; set; }
-        public string DiaChi { get; set; }
-        public string ThoiGianLamViec { get; set; }
         public string IdNguoiLap { get; set; }
-        public List<SelectListItem> DdlNguoiLap { get; set; }
-        public string UpdateTime { get; set; }
+        public List<SelectListItem> DdlDTC { get; set; }
+        public string ThoiGianTiem { get; set; }
+        public string CMND { get; set; }
+        public string IdThongTin { get; set; }
+        public string SoMui { get; set; }
         public string Mode { get; set; }
-        public bool DeleteFlag { get; set; }
+        public List<SelectListItem> DdlLoVaccine { get; set; }
+        public List<SelectListItem> DdlSoMui { get; set; }
+        public string UpdateTime { get; set; }
         public QuanLyGCNViewModel()
         {
-            DdlNguoiLap = new List<SelectListItem>();
+            DdlDTC = new List<SelectListItem>();
+            DdlLoVaccine = new List<SelectListItem>();
+            DdlSoMui = new List<SelectListItem>();
         }
     }
 }

@@ -29,5 +29,11 @@ namespace ECOVAX.Providers
                                                                             new SelectListItem() { Text = "Xác nhận", Value = "Xác nhận" },
                                                                             new SelectListItem() { Text = "Từ chối", Value = "Từ chối" }
                                                                         };
+
+        public static readonly List<SelectListItem> DDL_SOMUI_GCN = new List<SelectListItem> {
+                                                                            new SelectListItem() { Text = "", Value = null },
+                                                                            new SelectListItem() { Text = "1", Value = "1" },
+                                                                            new SelectListItem() { Text = "2", Value = "2" }
+                                                                        };
     }
 }
