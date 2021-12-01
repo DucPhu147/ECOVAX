@@ -117,7 +117,7 @@ namespace ECOVAX.Controllers
                                       T5.SDT";
             DataTable tb = DataProvider.ExecuteQuery(query);
             string json = JsonConvert.SerializeObject(tb);
-            return Json(json, JsonRequestBehavior.AllowGet); ;
+            return Json(json, JsonRequestBehavior.AllowGet);
         }
 
 

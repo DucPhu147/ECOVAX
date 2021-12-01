@@ -112,7 +112,13 @@
         <ul class="app-menu">
             <li><a class="app-menu__item" href="/Dashboard" id="Index"><i class="app-menu__icon fal fa-server"></i><span class="app-menu__label">Tổng quan</span></a></li>
             <li><a class="app-menu__item PheDuyetGDK" href="/Dashboard/PheDuyetGDK"><i class="app-menu__icon fal fa-syringe"></i><span class="app-menu__label">Phê duyệt giấy đăng ký</span></a></li>
-            <li><a class="app-menu__item" href="/Dashboard"><i class="app-menu__icon fal fa-file-contract"></i><span class="app-menu__label">Thống kê</span></a></li>
+            <li class="treeview">
+                <a class="app-menu__item" name="QuanLyDTC" href="#" data-toggle="treeview"><i class="app-menu__icon fal fa-file-contract"></i><span class="app-menu__label">Thống kê</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                <ul class="treeview-menu">
+                    @*<li><a class="treeview-item TKGiayDK" href="/Dashboard/TKGiayDK">Thống kê giấy đăng ký</a></li>*@
+                    <li><a class="treeview-item TKMuiDaTiem" href="/Dashboard/TKMuiDaTiem">Thống kê mũi đã tiêm</a></li>
+                </ul>
+            </li>
             <li><a class="app-menu__item QuanLyGCN" href="/Dashboard/QuanLyGCN"><i class="app-menu__icon fal fa-file-certificate"></i><span class="app-menu__label">Quản lý giấy chứng nhận</span></a></li>
             <li class="treeview">
                 <a class="app-menu__item" name="QuanLyDTC" href="#" data-toggle="treeview"><i class="app-menu__icon fal fa-map-marker-alt"></i><span class="app-menu__label">Điểm tiêm chủng</span><i class="treeview-indicator fa fa-angle-right"></i></a>
@@ -159,6 +165,7 @@
     <script src="~/Scripts/dashboard/js/plugins/jquery.dataTables.min.js"></script>
     <script src="~/Scripts/dashboard/js/plugins/dataTables.bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/plug-ins/1.11.3/i18n/vi.json"></script>
+    
     <script src="https://cdn.datatables.net/fixedcolumns/4.0.1/js/dataTables.fixedColumns.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
     <script src="~/Scripts/index.js"></script>

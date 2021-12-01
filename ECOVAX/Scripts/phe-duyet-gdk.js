@@ -15,7 +15,7 @@
             NgayTiemThucTe: {
                 required: true,
                 customGreaterThanDate: $("#txtNgayTiemMongMuon").text(),
-                customGreaterThanDate2: $("#txtNgayTiemMongMuon").text(),
+                customGreaterThanDate2: $("#txtNgayTiemMongMuon").text()
             },
             BuoiTiemThucTe: {
                 required: true
@@ -64,7 +64,8 @@ jQuery.validator.addMethod("customGreaterThanDate",
 jQuery.validator.addMethod("customGreaterThanDate2",
     function (value, element, param) {
         if (value !== "" && param !== "") {
-            return new Date(value).getTime() >= new Date(param).getTime();
+            var paramDate = new Date(param).getTime();
+            return new Date(value).getTime() >= paramDate;
         }
         return true;
     }, 'Ngày tiêm phải lớn hơn hoặc bằng ngày tiêm mong muốn.');

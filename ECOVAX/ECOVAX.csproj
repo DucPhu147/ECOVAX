@@ -96,6 +96,7 @@
     <Content Include="Content\dashboard\css\main.css" />
     <Content Include="Content\loading-screen.css" />
     <Content Include="Scripts\api-hanh-chinh-vn-dashboard.js" />
+    <Content Include="Scripts\thong-ke.js" />
     <Content Include="Scripts\phe-duyet-gdk.js" />
     <Content Include="Scripts\danh-muc-phieu-sang-loc.js" />
     <Content Include="Scripts\quan-ly-gcn.js" />
@@ -8111,6 +8112,7 @@
     <Compile Include="Controllers\DanhMucPhieuSangLocController.cs" />
     <Compile Include="Controllers\QuanLyDTCController.cs" />
     <Compile Include="Controllers\QuanLyGCNController.cs" />
+    <Compile Include="Controllers\ThongKeController.cs" />
     <Compile Include="Controllers\ThongTinVaccineController.cs" />
     <Compile Include="Controllers\TraCuuController.cs" />
     <Compile Include="Controllers\TrangChuController.cs" />
@@ -8938,6 +8940,7 @@
     <Content Include="Views\Dashboard\DanhMucPhieuSangLoc.cshtml" />
     <Content Include="Views\Dashboard\QuanLyGCN.cshtml" />
     <Content Include="Views\QuanLyGCN\Index.cshtml" />
+    <Content Include="Views\Dashboard\TKMuiDaTiem.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -8948,6 +8951,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="App_Start\" />
+    <Folder Include="Views\ThongKe\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

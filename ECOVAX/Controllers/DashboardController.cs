@@ -95,5 +95,17 @@ namespace ECOVAX.Controllers
 
             return View("QuanLyGCN", dashboardModel);
         }
+        public ActionResult TKMuiDaTiem()
+        {
+            if (Session[Constant.USER_INFO] == null)
+            {
+                return RedirectToAction("Index", "DangNhap");
+            }
+            dashboardModel = new DashboardModel();
+            dashboardModel.MenuId = System.Reflection.MethodBase.GetCurrentMethod().Name;
+            dashboardModel.MenuName = "Thống kê mũi đã tiêm";
+
+            return View("TKMuiDaTiem", dashboardModel);
+        }
     }
 }

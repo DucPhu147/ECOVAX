@@ -155,6 +155,27 @@
             $("#firstVacInfoContainer").addClass("d-none");
         }
     });
+    $("#btnSubmit").click(function (e) {
+        if ($("#registInfoForm").valid()) {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                data: {
+                    idVaccine: $("#ddlVaccine option:selected").val(),
+                    ngayTiem: $("#ngayTiemMuiMot").val()
+                },
+                contentType: "application/json; charset=utf-8",
+                url: '/DangKyTiem/CheckNgayTiemMuiMot',
+                success: function (jsonResult) {
+                    if (jsonResult.status == "error") {
+                        showDangerAlert(jsonResult.message);
+                    } else {
+                        $("#registInfoForm").submit();
+                    }
+                },
+            });
+        }
+    });
 });
 
 jQuery.validator.addMethod("customNgayTiemValidate",

@@ -176,5 +176,24 @@ namespace ECOVAX.Controllers
                 giayDangKyViewModel = null;
             }
         }
+
+        [HttpGet]
+        public ActionResult CheckNgayTiemMuiMot(string idVaccine, string ngayTiem)
+        {
+            DataTable tb = DataProvider.ExecuteQuery("SELECT * FROM tblVaccine WHERE TenVaccine LIKE '" + idVaccine + "'");
+            int thoiHanTiem = (int)tb.Rows[0]["ThoiHanTiem"];
+
+            TimeSpan ts = DateTime.Now - DateTime.Parse(ngayTiem);
+            int days = (int)ts.TotalDays;
+            if (days <= thoiHanTiem)
+            {
+                return Json(new
+                {
+                    status = "error",
+                    message = "Ngày tiêm mũi một phải nhỏ hơn ngày hiện tại ít nhất " + thoiHanTiem + " ngày"
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return Json("{}", JsonRequestBehavior.AllowGet);
+        }
     }
 }

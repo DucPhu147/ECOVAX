@@ -179,13 +179,13 @@ namespace ECOVAX.Controllers
 
             if (model.Mode == "2")
             {
-                tb = DataProvider.ExecuteQuery(@"EXEC UPDATE_tblGiayChungNhan @IdGiayCN , 
+                DataProvider.ExecuteQuery(@"EXEC UPDATE_tblGiayChungNhan @IdGiayCN , 
                                                                                @IdThongTin , 
                                                                                @IdDTC , 
                                                                                @SoMui , 
                                                                                @LoVaccine , 
                                                                                @TenVaccine ",
-                     new object[] { model.IdGCN, idThongTin, idDTC, soMui, loVaccine, tenVaccine});
+                     new object[] { model.IdGCN, idThongTin, idDTC, soMui, loVaccine, tenVaccine });
                 return Json("{}", JsonRequestBehavior.AllowGet);
             }
             else
@@ -193,7 +193,7 @@ namespace ECOVAX.Controllers
                 string idGiayCN = DataProvider.GetNewId(Constant.ID_GIAYCN_PREFIX);
                 DateTime today = DateTime.Today;
                 string date = today.ToString("MM/dd/yyyy");
-                tb = DataProvider.ExecuteQuery(@"EXEC INSERT_tblGiayChungNhan @IdGiayCN 
+                DataProvider.ExecuteQuery(@"EXEC INSERT_tblGiayChungNhan @IdGiayCN 
                                                                                , @IdTaiKhoan 
                                                                                , @IdThongTin 
                                                                                , @IdDTC 
@@ -202,6 +202,8 @@ namespace ECOVAX.Controllers
                                                                                , @TenVaccine 
                                                                                , @ThoiGianTiem",
                      new object[] { idGiayCN, userModel.IdTaiKhoan, idThongTin, idDTC, soMui, loVaccine, tenVaccine, date });
+
+                DataProvider.ExecuteQuery(@"UPDATE tblChiTietVaccine SET SoLuong = SoLuong - 1 WHERE LoVaccine LIKE '" + loVaccine + "'");
 
                 return Json(idGiayCN, JsonRequestBehavior.AllowGet);
             }

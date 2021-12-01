@@ -82,5 +82,5 @@ function showAlert(text) {
     const timeOut = setTimeout(function () {
         $("#alertDialog").css("right", "-100vw");
         clearTimeout(timeOut);
-    }, 3000);
+    }, 5000);
 }
