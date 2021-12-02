@@ -162,7 +162,8 @@
                 dataType: "json",
                 data: {
                     idVaccine: $("#ddlVaccine option:selected").val(),
-                    ngayTiem: $("#ngayTiemMuiMot").val()
+                    ngayTiem: $("#ngayTiemMuiMot").val(),
+                    ngayTiemMongMuon: $("#ngayTiem").val()
                 },
                 contentType: "application/json; charset=utf-8",
                 url: '/DangKyTiem/CheckNgayTiemMuiMot',

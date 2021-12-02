@@ -95,7 +95,9 @@
     <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\dashboard\css\main.css" />
     <Content Include="Content\loading-screen.css" />
+    <Content Include="Content\print.css" />
     <Content Include="Scripts\api-hanh-chinh-vn-dashboard.js" />
+    <Content Include="Scripts\printThis.js" />
     <Content Include="Scripts\thong-ke.js" />
     <Content Include="Scripts\phe-duyet-gdk.js" />
     <Content Include="Scripts\danh-muc-phieu-sang-loc.js" />
@@ -8110,6 +8112,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\PheDuyetGDKController.cs" />
     <Compile Include="Controllers\DanhMucPhieuSangLocController.cs" />
+    <Compile Include="Controllers\PrintController.cs" />
     <Compile Include="Controllers\QuanLyDTCController.cs" />
     <Compile Include="Controllers\QuanLyGCNController.cs" />
     <Compile Include="Controllers\ThongKeController.cs" />
@@ -8120,7 +8123,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\PrintViewModel.cs" />
     <Compile Include="Models\QuanLyGCNViewModel.cs" />
     <Compile Include="Models\ThongTinVaccineViewModel.cs" />
     <Compile Include="Models\QuanLyDTCViewModel.cs" />
@@ -8941,6 +8944,7 @@
     <Content Include="Views\Dashboard\QuanLyGCN.cshtml" />
     <Content Include="Views\QuanLyGCN\Index.cshtml" />
     <Content Include="Views\Dashboard\TKMuiDaTiem.cshtml" />
+    <Content Include="Views\Print\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -8951,7 +8955,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="App_Start\" />
-    <Folder Include="Views\ThongKe\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

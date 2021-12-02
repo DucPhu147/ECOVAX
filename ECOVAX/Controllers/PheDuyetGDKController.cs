@@ -96,25 +96,24 @@ namespace ECOVAX.Controllers
         [HttpGet]
         public ActionResult GetDTC(string idVaccine)
         {
-            string query = @"SELECT  T1.IdDTC,
-                                      T1.TenDTC,
-                                      T1.ThoiGianLamViec,
-                                      T1.DiaChi,
-                                      T5.Ten,
-                                      T5.SDT,
-                                      SUM(T2.SoLuong) AS SoLuong
-                            FROM tblDiemTiemChung T1 
-                                 INNER JOIN tblChiTietVaccine T2 ON T1.IdDTC = T2.IdDTC
-                                 INNER JOIN tblVaccine T3 ON T3.IdVaccine = T2.IdVaccine
-                                 LEFT JOIN tblTaiKhoan T4 ON T1.IdTaiKhoan = T4.IdTaiKhoan 
-                                 LEFT JOIN tblThongTin T5 ON T4.IdThongTin = T5.Id
-                            WHERE T1.DeleteFlag = 0 AND T2.IdVaccine = " + idVaccine + @"
-                            GROUP BY T1.TenDTC,
-                                      T1.ThoiGianLamViec,
-                                      T1.DiaChi,
-                                      T1.IdDTC,
-                                      T5.Ten,
-                                      T5.SDT";
+            string[] diaChiArray = model.DiaChi.Split(',');
+            string thanhPho = diaChiArray[diaChiArray.Length - 1].Trim();
+            string quanHuyen = diaChiArray[diaChiArray.Length - 2].Trim();
+            string query = "SELECT  T1.IdDTC," +
+                                      " T1.TenDTC," +
+                                      " T1.ThoiGianLamViec," +
+                                      " T1.DiaChi," +
+                                      " T2.HanSuDung," +
+                                      " T5.Ten," +
+                                      " T5.SDT," +
+                                      " T2.LoVaccine," +
+                                      " T2.SoLuong" +
+                            " FROM tblDiemTiemChung T1 " +
+                                 " INNER JOIN tblChiTietVaccine T2 ON T1.IdDTC = T2.IdDTC" +
+                                 " LEFT JOIN tblTaiKhoan T4 ON T1.IdTaiKhoan = T4.IdTaiKhoan " +
+                                 " LEFT JOIN tblThongTin T5 ON T4.IdThongTin = T5.Id" +
+                           " WHERE T1.DeleteFlag = 0 AND T2.IdVaccine = " + idVaccine +
+                            " AND T1.DiaChi LIKE N'%" + thanhPho + "%' AND T1.DiaChi LIKE N'%" + quanHuyen + "%'";
             DataTable tb = DataProvider.ExecuteQuery(query);
             string json = JsonConvert.SerializeObject(tb);
             return Json(json, JsonRequestBehavior.AllowGet);
@@ -190,7 +189,7 @@ namespace ECOVAX.Controllers
         }
 
         [HttpGet]
-        public ActionResult PheDuyetGDK(string trangThaiPD, string vaccine, string buoiTiem = "", string idDTC = "", string ngayTiem = "")
+        public ActionResult PheDuyetGDK(string trangThaiPD, string vaccine, string buoiTiem = "" , string idDTC = "", string ngayTiem = "")
         {
             UserModel userModel = (UserModel)Session[Constant.USER_INFO];
             DataTable tb = DataProvider.ExecuteQuery("SELECT * FROM tblGiayDangKy WHERE IdGiayDK LIKE '" + model.IdGiayGK + "' AND UpdateTime LIKE '" + model.UpdateTime + "'");

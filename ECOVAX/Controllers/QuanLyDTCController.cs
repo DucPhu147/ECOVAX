@@ -159,22 +159,29 @@ namespace ECOVAX.Controllers
         [HttpGet]
         public ActionResult GetLoVaccine(string idDTC)
         {
+            DataTable tb = DataProvider.ExecuteQuery("SELECT * FROM tblDiemTiemChung WHERE IdDTC = " + idDTC);
+            if (tb.Rows.Count == 0)
+            {
+                return new HttpStatusCodeResult(500, null);
+            }
             string query = "SELECT T1.LoVaccine," +
                             "       T1.SoLuong," +
+                            "       T1.Id," +
+                            "       T1.HanSuDung," +
                             "       T1.Id," +
                             "       T2.TenVaccine" +
                             " FROM tblChiTietVaccine T1 INNER JOIN tblVaccine T2 ON T1.IdVaccine = T2.IdVaccine" +
                             " WHERE T1.IdDTC = " + idDTC;
-            DataTable tb = DataProvider.ExecuteQuery(query);
+            tb = DataProvider.ExecuteQuery(query);
             string json = JsonConvert.SerializeObject(tb);
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
-        public ActionResult AddLoVaccine(string idDTC, string soLuong, string loVaccine, string vaccine)
+        public ActionResult AddLoVaccine(string idDTC, string soLuong, string loVaccine, string vaccine, string hanSuDung)
         {
-            int result = DataProvider.ExecuteNonQuery("EXEC INSERT_tblChiTietVaccine @IdDTC , @IdVaccine , @SoLuong , @LoVaccine ",
-                new object[] { idDTC, vaccine, soLuong, loVaccine });
+            int result = DataProvider.ExecuteNonQuery("EXEC INSERT_tblChiTietVaccine @IdDTC , @IdVaccine , @SoLuong , @LoVaccine , @HanSuDung",
+                new object[] { idDTC, vaccine, soLuong, loVaccine, hanSuDung });
             if (result == 0)
             {
                 return new HttpStatusCodeResult(500, null);

@@ -178,19 +178,28 @@ namespace ECOVAX.Controllers
         }
 
         [HttpGet]
-        public ActionResult CheckNgayTiemMuiMot(string idVaccine, string ngayTiem)
+        public ActionResult CheckNgayTiemMuiMot(string idVaccine, string ngayTiem, string ngayTiemMongMuon)
         {
             DataTable tb = DataProvider.ExecuteQuery("SELECT * FROM tblVaccine WHERE TenVaccine LIKE '" + idVaccine + "'");
             int thoiHanTiem = (int)tb.Rows[0]["ThoiHanTiem"];
-
-            TimeSpan ts = DateTime.Now - DateTime.Parse(ngayTiem);
+            DateTime dateCheck = DateTime.Now;
+            if (!string.IsNullOrEmpty(ngayTiemMongMuon))
+            {
+                dateCheck = DateTime.Parse(ngayTiemMongMuon);
+            }
+            TimeSpan ts = dateCheck - DateTime.Parse(ngayTiem);
             int days = (int)ts.TotalDays;
             if (days <= thoiHanTiem)
             {
+                string message = "Ngày tiêm mũi một phải nhỏ hơn ngày hiện tại ít nhất " + thoiHanTiem + " ngày";
+                if (!string.IsNullOrEmpty(ngayTiemMongMuon))
+                {
+                    message = "Ngày tiêm mong muốn phải lớn hơn ngày tiêm mũi một ít nhất " + thoiHanTiem + " ngày";
+                }
                 return Json(new
                 {
                     status = "error",
-                    message = "Ngày tiêm mũi một phải nhỏ hơn ngày hiện tại ít nhất " + thoiHanTiem + " ngày"
+                    message = message
                 }, JsonRequestBehavior.AllowGet);
             }
             return Json("{}", JsonRequestBehavior.AllowGet);

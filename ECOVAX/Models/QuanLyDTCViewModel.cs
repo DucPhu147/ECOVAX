@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace ECOVAX.Models
 {
-    public class QuanLyDTCViewModel : BaseModel
+    public class QuanLyDTCViewModel
     {
         public string IdDTC { get; set; }
         public string TenDTC { get; set; }

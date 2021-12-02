@@ -64,11 +64,12 @@ function getGDKItems() {
                 $("#lblEmpty").addClass("d-none");
                 for (let i = 0; i < result.length; i++) {
                     let trangThaiPD;
-                    let deleteHtml = "";
+                    let actionHtml = "";
                     let thongTinTC = "<td></td><td></td><td></td>";
                     if (result[i].TrangThaiPD == pendingStatus) {
                         trangThaiPD = "<label class='text-warning font-weight-bold'>" + result[i].TrangThaiPD + "</label>";
-                        deleteHtml = "<a href='#' class='text-danger font-weight-bold' onclick='confirmDelete(\"" + result[i].IdGiayDK + "\", \"" + result[i].UpdateTime + "\")'>Hủy</a>";
+                        actionHtml = "<a href='#' class='text-danger' onclick='confirmDelete(\"" + result[i].IdGiayDK + "\", \"" + result[i].UpdateTime + "\")'>" +
+                            "<i class='fal fa-trash' title='Hủy giấy đăng ký'></i></a > ";
                     } else if (result[i].TrangThaiPD == rejectStatus) {
                         trangThaiPD = "<label class='text-danger font-weight-bold'>" + result[i].TrangThaiPD + "</label>";
                     } else if (result[i].TrangThaiPD == successStatus) {
@@ -76,6 +77,8 @@ function getGDKItems() {
                             "<td class='font-weight-bold'>" + result[i].NgayTiem + "</td>" +
                             "<td class='font-weight-bold'>" + result[i].BuoiTiem + "</td>";
                         trangThaiPD = "<label class='text-success font-weight-bold'>" + result[i].TrangThaiPD + "</label>";
+                        actionHtml = "<a href='/Print?idGiayDK=" + result[i].IdGiayDK+"' class='text-primary' target='_blank'>" + 
+                            "<i class='fal fa-print' title='In giấy đăng ký'></i></a > ";
                     }
                     $("#tblResult > tbody:last-child").append(
                         "<tr>" +
@@ -85,7 +88,7 @@ function getGDKItems() {
                         "<td>" + result[i].TenNguoiDK + "</td>" +
                         "<td>" + result[i].ThoiGianDK + "</td>" + thongTinTC +
                         "<td>" + trangThaiPD + "</td>" +
-                        "<td>" + deleteHtml + "</td>" +
+                        "<td>" + actionHtml + "</td>" +
                         "</tr > "
                     );
                 }

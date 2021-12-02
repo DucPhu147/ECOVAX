@@ -1,4 +1,5 @@
 ﻿using ECOVAX.Providers;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -56,7 +57,7 @@ namespace ECOVAX.Controllers
                                                       " OR T1.SDTNguoiLH LIKE '" + sdt + "')";
 
             DataTable tb = DataProvider.ExecuteQuery(query);
-            string json = DataProvider.DataTableToJsonObj(tb);
+            string json = JsonConvert.SerializeObject(tb);
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 
@@ -73,16 +74,17 @@ namespace ECOVAX.Controllers
                                                             " T1.TenVaccine," +
                                                             " T1.ThoiGianTiem," +
                                                             " T2.TenDTC," +
-                                                            " T3.Ten," +
-                                                            " T3.CMND" +
+                                                            " T4.Ten," +
+                                                            " T4.CMND" +
                                                       " FROM tblGiayChungNhan T1" +
                                                       " LEFT JOIN tblDiemTiemChung T2 ON T1.IdDTC = T2.IdDTC" +
-                                                      " INNER JOIN tblThongTin T3 ON T3.Id = T1.IdThongTin" +
-                                                      " WHERE T1.DeleteFlag = 0 AND T3.CMND LIKE '" + cmnd + "'" +
-                                                      "     AND (dbo.removeSign(T3.Ten) LIKE N'%" + ten + "%'" +
-                                                      "     OR T3.Ten LIKE N'%" + ten + "%')";
+                                                      " LEFT JOIN tblGiayDangKy T3 ON T1.IdGiayDK = T3.IdGiayDK" +
+                                                      " INNER JOIN tblThongTin T4 ON T4.Id = T3.IdThongTin" +
+                                                      " WHERE T4.CMND LIKE '" + cmnd + "'" +
+                                                      "     AND (dbo.removeSign(T4.Ten) LIKE N'%" + ten + "%'" +
+                                                      "     OR T4.Ten LIKE N'%" + ten + "%')";
             DataTable tb = DataProvider.ExecuteQuery(query);
-            string json = DataProvider.DataTableToJsonObj(tb);
+            string json = JsonConvert.SerializeObject(tb);
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 
@@ -111,7 +113,7 @@ namespace ECOVAX.Controllers
                 query += " AND T1.DiaChi LIKE N'%" + phuongXa + "%'";
             }
             DataTable tb = DataProvider.ExecuteQuery(query);
-            string json = DataProvider.DataTableToJsonObj(tb);
+            string json = JsonConvert.SerializeObject(tb);
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 

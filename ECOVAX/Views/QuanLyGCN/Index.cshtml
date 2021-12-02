@@ -14,26 +14,28 @@
         <div class="col-md-12">
             <div class="tile">
                 <div class="form-group col-md-4">
+                    <label class="required">Mã giấy đăng ký</label>
+                    <input type="text" name="IdGiayDK" id="IdGiayDK" class="form-control" value="@Model.IdGiayDK" maxlength="255" />
+                </div>
+                <div class="form-group col-md-4">
                     <label class="required">CMND người tiêm</label>
-                    <input type="text" name="CMND" id="CMND" class="form-control" value="@Model.CMND" maxlength="12" />
+                    <input type="text" id="CMND" value="@Model.CMND" class="form-control" disabled />
                 </div>
                 <div class="form-group col-md-4">
-                    <label class="required">Số mũi</label>
-                    @Html.DropDownListFor(m => m.SoMui, Model.DdlSoMui,
-                     new
-                     {
-                         id = "ddlSoMui",
-                         @class = "form-control w-100"
-                     })
+                    <label class="required">Họ tên người tiêm</label>
+                    <input type="text" id="HoTen" value="@Model.TenNguoiDK" class="form-control" disabled />
                 </div>
                 <div class="form-group col-md-4">
-                    <label class="required">Nơi cấp</label>
-                    @Html.DropDownListFor(m => m.IdDTC, Model.DdlDTC,
-                     new
-                     {
-                         id = "ddlDTC",
-                         @class = "form-control w-100"
-                     })
+                    <label class="required">Ngày tiêm</label>
+                    <input type="text" id="NgayTiem" value="@Model.ThoiGianTiem" class="form-control" disabled />
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="required">Tên điểm tiêm</label>
+                    <input type="text" id="TenDTC" value="@Model.TenDTC" class="form-control" disabled />
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="required">Số mũi tiêm</label>
+                    <input type="text" id="SoMui" class="form-control" value="@Model.SoMui" disabled />
                 </div>
                 <div class="form-group col-md-4">
                     <label class="required">Lô vắc xin</label>
@@ -44,6 +46,29 @@
                          @class = "form-control w-100"
                      })
                 </div>
+                @*<div class="form-group col-md-4">
+            <label class="required">CMND người tiêm</label>
+            <input type="text" name="CMND" id="CMND" class="form-control" value="@Model.CMND" maxlength="12" />
+        </div>
+        <div class="form-group col-md-4">
+            <label class="required">Số mũi</label>
+            @Html.DropDownListFor(m => m.SoMui, Model.DdlSoMui,
+             new
+             {
+                 id = "ddlSoMui",
+                 @class = "form-control w-100"
+             })
+        </div>
+        <div class="form-group col-md-4">
+            <label class="required">Nơi cấp</label>
+            @Html.DropDownListFor(m => m.IdDTC, Model.DdlDTC,
+             new
+             {
+                 id = "ddlDTC",
+                 @class = "form-control w-100"
+             })
+        </div>*@
+
                 <div class="tile-footer text-right">
                     <button class="btn btn-primary" type="button" id="btnSubmit">Lưu</button>
                 </div>

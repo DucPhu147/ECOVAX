@@ -72,6 +72,9 @@
                 digits: true,
                 equalRangeLength: [9, 12],
             },
+            IdGiayDK: {
+                required: true,
+            },
             IdDTC: {
                 required: true
             },
@@ -82,6 +85,9 @@
                 required: true
             }
         }
+    });
+    $("#IdGiayDK").change(function () {
+        getGiayDKInfo();
     });
 });
 function getLoVaccine() {
@@ -157,6 +163,8 @@ function searchGCN() {
                         result[i].CMND,
                         result[i].TenNguoiLap,
                         result[i].TenDTC,
+                        result[i].TenNguoiUpdate,
+                        result[i].UpdateTime,
                         action
                     ]).draw();
                 }
@@ -175,7 +183,39 @@ function openPopup(idGCN, mode) {
         }
     }, 500);
 }
-
+function getGiayDKInfo() {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        data: {
+            idGiayDK: $("#IdGiayDK").val()
+        },
+        contentType: "application/json; charset=utf-8",
+        url: '/QuanLyGCN/GetGiayDKInfo',
+        success: function (jsonResult) {
+            var result = jsonResult;
+            if (result.status == "error") {
+                showDangerAlert(jsonResult.message);
+                return;
+            }
+            $("#TenDTC").val(result.TenDTC);
+            $("#NgayTiem").val(result.NgayTiem);
+            $("#CMND").val(result.CMND);
+            $("#HoTen").val(result.TenNguoiDK);
+            $("#SoMui").val(result.SoMui);
+            if (result.DdlLoVaccine.length > 0) {
+                for (let i = 0; i < result.DdlLoVaccine.length; i++) {
+                    var newOption = new Option(result.DdlLoVaccine[i].Text, result.DdlLoVaccine[i].Value, false, false);
+                    $('#ddlLoVaccine').append(newOption);
+                }
+                $('#ddlLoVaccine').val(null).trigger('change');
+            }
+        },
+        error: function () {
+            showDangerAlert("Đã gặp lỗi xảy ra khi tìm thông tin giấy đăng ký");
+        }
+    });
+}
 function submitForm() {
     if ($("#mode").text() == "2") {
         if (!confirm("Bạn có muốn cập nhật giấy chứng nhận này?")) {
@@ -186,10 +226,12 @@ function submitForm() {
         type: "GET",
         dataType: "json",
         data: {
-            cmnd: $("#CMND").val(),
+            /*cmnd: $("#CMND").val(),
             idDTC: $("#ddlDTC option:selected").val(),
             loVaccine: $("#ddlLoVaccine option:selected").val(),
-            soMui: $("#ddlSoMui option:selected").val()
+            soMui: $("#ddlSoMui option:selected").val()*/
+            idGiayDK: $("#IdGiayDK").val(),
+            loVaccine: $("#ddlLoVaccine option:selected").val(),
         },
         contentType: "application/json; charset=utf-8",
         url: '/QuanLyGCN/SubmitGCNForm',

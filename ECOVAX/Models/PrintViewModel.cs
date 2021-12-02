@@ -4,16 +4,18 @@ using System.Web.Mvc;
 
 namespace ECOVAX.Models
 {
-    public class PheDuyetGDKViewModel
+    public class PrintViewModel
     {
         public List<DanhMucSangLocModel> listDanhMucSangLoc { get; set; }
-        public string IdGiayGK { get; set; }
+        public string IdGiayDK { get; set; }
         public string BuoiTiemThucTe { get; set; }
         public string BuoiTiemMongMuon { get; set; }
         public string NgayTiemMongMuon { get; set; }
         public string UpdateTime { get; set; }
+        public string ThoiGianDK { get; set; }
         public DateTime NgayTiemThucTe { get; set; }
         public string VaccineMuiMot { get; set; }
+        public string TenDTC { get; set; }
         public string SoMui { get; set; }
         public string TrangThaiPD { get; set; }
         public string NgayTiemMuiMot { get; set; }
@@ -33,7 +35,7 @@ namespace ECOVAX.Models
         public List<SelectListItem> DdlBuoiTiem { get; set; }
         public List<SelectListItem> DdlTrangThaiPD { get; set; }
         public List<SelectListItem> DdlVaccine { get; set; }
-        public PheDuyetGDKViewModel()
+        public PrintViewModel()
         {
             listDanhMucSangLoc = new List<DanhMucSangLocModel>();
             DdlBuoiTiem = new List<SelectListItem>();

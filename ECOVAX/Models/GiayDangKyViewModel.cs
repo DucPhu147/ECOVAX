@@ -18,6 +18,8 @@ namespace ECOVAX.Models
 
         public string TenNguoiDK { get; set; }
 
+        public string TenDTC { get; set; }
+
         public DateTime NgaySinh { get; set; }
 
         public string GioiTinh { get; set; }
@@ -39,6 +41,8 @@ namespace ECOVAX.Models
         public string BuoiTiem { get; set; }
 
         public string TenVaccineMuiMot { get; set; }
+        public string IdDTC { get; set; }
+        public string IdThongTin { get; set; }
 
         public DateTime? NgayTiemMuiMot { get; set; }
 

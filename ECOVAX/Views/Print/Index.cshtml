@@ -1,0 +1,190 @@
+﻿@model ECOVAX.Models.PrintViewModel
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>In giấy đăng ký tiêm</title>
+    <link rel="icon" type="image/png" href="~/Content/image/logo.png" />
+    @*    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+        <link href="https://printjs-4de6.kxcdn.com/print.min.css" />*@
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+    <link href="~/Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/printThis.js"></script>
+    <link href="~/Content/print.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <div class="mt-5 w-100 text-center">
+            <button type="button" class="btn btn-primary" id="btnPrint">In giấy đăng ký tiêm</button>
+        </div>
+        <div class="invisible">
+            <div id="printContainer">
+                <div class="container-fluid">
+                    @*<h3 class="text-uppercase text-center">Cổng tiêm chủng ECOVAX</h3>*@
+                    <h3 class="text-center mb-3 mt-3">Giấy đăng ký tiêm vắc xin</h3>
+                    <div class="col-md-12 text-justify">
+                        <div class="form-group">
+                            <h4>Thông tin về giấy đăng ký tiêm</h4>
+                            <label class="custom-label">
+                                Mã giấy đăng ký:&emsp; @Model.IdGiayDK
+                            </label>
+                            <br />
+                            <label class="custom-label">
+                                Ngày tạo:&emsp; @Model.ThoiGianDK
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <h4>Thông tin người liên hệ</h4>
+                            <label class="custom-label">
+                                Tên người liên hệ:&emsp; @Model.TenNguoiLH
+                            </label>
+                            <br />
+                            <label class="custom-label">
+                                SĐT người liên hệ:&emsp; @Model.SDTNguoiLH
+                            </label>
+                            <br />
+                            <label class="custom-label">
+                                Quan hệ với người đăng ký:&emsp; @Model.QuanHe
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <h4>Thông tin người đăng ký tiêm</h4>
+                            <label class="custom-label">
+                                Tên người đăng ký:&emsp; @Model.TenNguoiDK
+                            </label>
+                            <br />
+                            <label class="custom-label">
+                                CMND/ CCCD:&emsp; @Model.CMND
+                            </label>
+                            <br />
+                            <label class="custom-label">
+                                Ngày sinh:&emsp; @Model.NgaySinh
+                            </label>
+                            <br />
+                            <label class="custom-label">
+                                Số điện thoại:&emsp; @Model.SDTNguoiDK
+                            </label>
+                            <br />
+                            <label class="custom-label">
+                                Email:&emsp; @Model.Email
+                            </label>
+                            <br />
+                            <label class="custom-label">
+                                Địa chỉ hiện tại:&emsp; @Model.DiaChi
+                            </label>
+                            <br />
+                            <label class="custom-label">
+                                Nghề nghiệp:&emsp; @Model.NgheNghiep
+                            </label>
+                            <br />
+                            <label class="custom-label">
+                                Nhóm ưu tiên:&emsp; @Model.NhomUuTien
+                            </label>
+                            <br />
+                        </div>
+                        <div class="form-group">
+                            <h4>Thông tin về nơi tiêm, mũi tiêm</h4>
+                            <label class="custom-label">
+                                Buổi tiêm:&emsp; @Model.BuoiTiemMongMuon
+                            </label>
+                            <br />
+                            <label class="custom-label">
+                                Ngày tiêm:&emsp;@Model.NgayTiemMongMuon
+                            </label>
+                            <br />
+                            <label class="custom-label">
+                                Số mũi đăng ký:&emsp;@Model.SoMui
+                            </label>
+                            <br />
+                            <label class="custom-label">
+                                Vắc xin được chỉ định:&emsp;@Model.VaccineMuiMot
+                            </label>
+                            <br />
+                            <label class="custom-label">
+                                Điểm tiêm được chỉ định:&emsp;@Model.TenDTC
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="text-center mt-5">Phiếu sàng lọc bệnh nền</h3>
+                <div class="col-md-12 mb-5">
+                    <table class="table table-hover table-bordered nowrap" id="tblPhieuSangLoc">
+                        <thead>
+                            <tr>
+                                <th>Tên danh mục</th>
+                                <th style="width: 150px;" class="text-center">Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (var index = 0; index < Model.listDanhMucSangLoc.Count; index++)
+                            {
+                                <tr>
+                                    <td>
+                                        @(index + 1).
+                                        @Model.listDanhMucSangLoc[index].TenDanhMuc
+                                    </td>
+                                    <td class="text-center p-0 ">
+                                        <label>
+                                            @Model.listDanhMucSangLoc[index].TrangThai
+                                        </label>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            print();
+            $("#btnPrint").click(function () {
+                print();
+            });
+        });
+        function print() {
+            var header = '<div class="d-flex justify-content-between">' +
+                '<h5 class="text-uppercase">Cổng tiêm chủng ECOVAX</h5>'+
+                '<div class= "text-center"> ' +
+                '<h5 class="text-uppercase"> Cộng hòa xã hội chủ nghĩa Việt Nam</h5>' +
+                '<h5>Độc lập - tự do - hạnh phúc</h5>' +
+                '<hr/>' +
+                '</div></div>';
+            var footer = '<div class="d-flex justify-content-end">' +
+                '<div class= "text-center"> ' +
+                '<p>......, ngày @DateTime.Now.Day, tháng @DateTime.Now.Month, năm @DateTime.Now.Year </p>' +
+                '<p class="font-weight-bold">Người khai thông tin</p>' +
+                '<p class="font-italic">(Ký, ghi rõ họ tên)</p><br/>' +
+                '<br/> ' +
+                '</div></div>';
+            $("#printContainer").printThis({
+                debug: false,               // show the iframe for debugging
+                importCSS: true,            // import parent page css
+                importStyle: false,         // import style tags
+                printContainer: true,       // print outer container/$.selector
+                loadCSS: "",                // path to additional css file - use an array [] for multiple
+                pageTitle: "Cổng tiêm chủng E-COVAX",              // add title to print page
+                removeInline: false,        // remove inline styles from print elements
+                removeInlineSelector: "*",  // custom selectors to filter inline styles. removeInline must be true
+                printDelay: 333,            // variable print delay
+                header: header,               // prefix to html
+                footer: footer,               // postfix to html
+                base: false,                // preserve the BASE tag or accept a string for the URL
+                formValues: true,           // preserve input/form values
+                canvas: false,              // copy canvas content
+                doctypeString: '<!DOCTYPE html>', // enter a different doctype for older markup
+                removeScripts: false,       // remove script tags from print content
+                copyTagClasses: false,      // copy classes from the html & body tag
+                beforePrintEvent: null,     // callback function for printEvent in iframe
+                beforePrint: null,          // function called before iframe is filled
+                afterPrint: null            // function called before iframe is removed});
+            });
+        }
+    </script>
+</body>
+</html>

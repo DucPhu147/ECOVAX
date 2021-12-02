@@ -85,6 +85,10 @@ function getDTC() {
             const result = JSON.parse(jsonResult);
             if (result.length > 0) {
                 for (let i = 0; i < result.length; i++) {
+                    var hanSuDung = "";
+                    if (result[i].HanSuDung != null) {
+                        hanSuDung = result[i].HanSuDung.replace("T00:00:00", "");
+                    }
                     $("#tblDTC").DataTable().row.add([
                         result[i].IdDTC,
                         result[i].TenDTC,
@@ -92,7 +96,9 @@ function getDTC() {
                         result[i].ThoiGianLamViec,
                         result[i].Ten,
                         result[i].SDT,
+                        result[i].LoVaccine,
                         result[i].SoLuong,
+                        hanSuDung,
                     ]).draw();
                 }
             } else {

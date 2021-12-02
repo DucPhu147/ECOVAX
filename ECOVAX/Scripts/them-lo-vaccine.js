@@ -30,6 +30,10 @@
             },
             LoVaccine: {
                 required: true,
+            },
+            HanSuDung: {
+                required: true,
+                customHanSuDungValidate: new Date()
             }
         }
     });
@@ -57,19 +61,37 @@ function searchLoVaccine() {
             const result = JSON.parse(jsonResult);
             if (result.length > 0) {
                 for (let i = 0; i < result.length; i++) {
+                    var hanSuDung = "";
+                    if (result[i].HanSuDung != null) {
+                        hanSuDung = result[i].HanSuDung.replace("T00:00:00", "");
+                    }
                     $("#tblResult").DataTable().row.add([
                         result[i].TenVaccine,
                         result[i].LoVaccine,
                         result[i].SoLuong,
-                        "<a href='#' class='text-danger' onClick='requestDelete(\"" + result[i].Id + "\")' title='Xóa'><i class='fal fa-remove'></i></a>"
+                        hanSuDung
+                        /*"<a href='#' class='text-danger' onClick='requestDelete(\"" + result[i].Id + "\")' title='Xóa'><i class='fal fa-remove'></i></a>"*/
                     ]).draw();
                 }
             } else {
                 $("#tblResult").DataTable().columns.adjust().draw();
             }
-        },
+        }, error: function () {
+            showDangerAlert("Không tìm thấy điểm tiêm chủng");
+        }
     });
 }
+jQuery.validator.addMethod("customHanSuDungValidate",
+    function (value, element, param) {
+        if (value !== "") {
+            var inputDate = new Date(value);
+            var currentDate = new Date();
+            currentDate.setMonth(currentDate.getMonth() + 1);
+
+            return inputDate.getTime() > currentDate.getTime();
+        }
+        return true;
+    }, 'Hạn sử dụng phải lớn hơn ngày hiện tại ít nhất 1 tháng.');
 function addLoVaccine() {
     $.ajax({
         type: "GET",
@@ -78,6 +100,7 @@ function addLoVaccine() {
             idDTC: $("#idDTC").val(),
             soLuong: $("#soLuong").val(),
             loVaccine: $("#loVaccine").val(),
+            hanSuDung: $("#hanSuDung").val(),
             vaccine: $("#ddlVaccine option:selected").val()
         },
         contentType: "application/json; charset=utf-8",
